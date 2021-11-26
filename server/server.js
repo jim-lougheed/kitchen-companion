@@ -2,7 +2,9 @@ require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
 const { default: axios } = require('axios');
+const knex = require("knex")(require('./knexfile').development);
 const { PORT } = process.env;
+// const mysql = require('mysql');
 
 const app = express();
 
@@ -49,6 +51,60 @@ app
         .catch((err) => console.error(err))
 })
 
+/*
+*GET all recipes from database
+*/
+app
+    .get('/myrecipes', (req, res) => {
+        knex
+            .select('*')
+            .from('favourite-recipes')
+            .then((data) => {
+                res.status(200).json(data)
+            })
+            .catch((err) => {
+                res.status(400).json({
+                    message: 'Error getting recipes'
+                })
+            })
+    })
+
+/*
+*GET single recipe from database
+*/
+app
+    .get('/myrecipes/:search', (req, res) => {
+        knex
+            .select('*')
+            .where('ingredientLines', 'like', `%${req.params.search}%`)
+            .from('favourite-recipes')
+            .then((data) => {
+                res.status(200).json(data)
+            })
+            .catch((err) => {
+                res.status(400).json({
+                    message: 'No matches found'
+                })
+            })
+    })
+
+/*
+*POST recipe to database
+*/
+app
+    .post('/myrecipes/add', (req, res) => {
+        knex('favourite-recipes')
+            .insert(req.body)
+            .then((favouritedRecipe) => {
+                res.status(201).json(favouritedRecipe)
+            })
+            .catch((err) => {
+                console.log(err)
+                res.status(400).json({
+                    message: 'Error adding recipe to favourites'
+                })
+            })
+    })
 
 
 app.listen(PORT, console.log(`Server running on port ${PORT}`));
