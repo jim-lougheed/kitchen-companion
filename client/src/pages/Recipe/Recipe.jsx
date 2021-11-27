@@ -8,7 +8,6 @@ function Recipe (props) {
     
 
     const params = useParams();
-    console.log(params)
     
 
         return (

@@ -1,21 +1,20 @@
 import { useHistory } from "react-router-dom";
 
-function SearchRecipes() {
+function SearchMyRecipes() {
     let history = useHistory(); 
     const searchAllRecipes = (e) => {
         e.preventDefault();
-        
-        history.push(`/recipes/${e.target[0].value}`)
+        history.push(`/myrecipes/${e.target[0].value}`)
     }
 
     return (
         <form onSubmit={searchAllRecipes}>
             <label>Search recipes...
-                <input type='text' name='recipeSearch' placeholder='Enter a search word'/>
+                <input type='text' name='myRecipesSearch' placeholder='Enter a search word'/>
             </label>
             <button type='submit'>Search</button>
         </form>
     )
 }
 
-export default SearchRecipes;
+export default SearchMyRecipes;

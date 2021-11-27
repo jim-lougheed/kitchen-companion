@@ -91,25 +91,6 @@ app
 /*
 *POST recipe to database
 */
-/* POST BODY MUST HAVE THIS FORMAT:
-{
-    "id": "5a1de7bd0d00b3abeaf2892619a73f7a",
-    "user_id": 1,
-    "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_5a1de7bd0d00b3abeaf2892619a73f7a",
-    "label": "Crazy other dish",
-    "image": "https://www.edamam.com/web-img/454/45448a86f31cccba0504b5df02a97770",
-    "yield": 4,
-    "dietLabels": "[]",
-    "healthLabels": "[\"Gluten-Free\",\"Wheat-Free\",\"Egg-Free\",\"Peanut-Free\",\"Soy-Free\",\"Fish-Free\",\"Shellfish-Free\",\"Pork-Free\",\"Red-Meat-Free\",\"Crustacean-Free\",\"Celery-Free\",\"Mustard-Free\",\"Sesame-Free\",\"Lupine-Free\",\"Mollusk-Free\",\"Alcohol-Free\"]",
-    "ingredientLines": "[\"1 cup uncooked Texmati® White Rice\",\"1 cup orange juice\",\"1 cup water\",\"1 teaspoon salt\",\"3 tablespoons butter, divided\",\"1/4 cup sliced almonds\",\"4 boneless, skinless chicken breast halves\",\"1/4 cup orange marmalade\",\"1/4 cup sliced green onions\"]",
-    "calories": 1874,
-    "totalTime": 30,
-    "cuisineType": "[\"French\"]",
-    "mealType":  "[\"lunch/dinner\"]",
-    "dishType": "[\"starter\"]"
-  }
-  */
-
 app
     .post('/myrecipes/add', (req, res) => {
         knex('favourite-recipes')
