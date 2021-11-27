@@ -35,7 +35,7 @@ function Home() {
             dishType: JSON.stringify(featuredRecipe.dishType)
         }
         axios
-            .post('/myrecipes/add', (recipeBody))
+            .post('/myrecipes', (recipeBody))
             .then(({data}) => console.log(`Added recipe to MyFavourites: ${data}`))
             .catch((err) => console.error(err))
     }
