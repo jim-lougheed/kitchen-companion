@@ -1,6 +1,9 @@
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import Navbar from './components/Navbar';
+import IngredientsOnHand from './components/IngredientsOnHand';
+
 import Home from './pages/Home';
 
 import Recipe from './pages/Recipe/Recipe';
@@ -9,12 +12,15 @@ import SearchRecipes from './pages/SearchRecipes';
 import MyRecipesList from './pages/MyRecipesList';
 import SearchMyRecipes from './pages/SearchMyRecipes';
 import MyRecipesSearchResults from './pages/MyRecipesSearchResults';
+import DinnerSelector from './pages/DinnerSelector';
+import MyShoppingList from './pages/MyShoppingList';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <h1>Dinner's Ready!</h1>
+        <Navbar />
+        <IngredientsOnHand />
         <Switch>
           <Route path='/home' exact component={Home} />
           <Route path='/recipes' exact component={SearchRecipes} />
@@ -23,6 +29,8 @@ function App() {
           <Route path='/myrecipes/all' exact component={MyRecipesList} />
           <Route path='/myrecipes' exact component={SearchMyRecipes} />
           <Route path='/myrecipes/:search' component={MyRecipesSearchResults} />
+          <Route path='/dinnerselector' component={DinnerSelector} />
+          <Route path='/myshoppinglist' component={MyShoppingList} />
         </Switch>
       </BrowserRouter>
     </div>
