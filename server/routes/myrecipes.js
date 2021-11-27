@@ -58,7 +58,3 @@ router
     })
 
     module.exports = router;
-
-    function test(test) {
-        console.log(test);
-    }
