@@ -7,32 +7,32 @@ function RecipePage(props) {
     useEffect(() => {
         const id = props.params.recipeId;
         axios
-            .get(`http://localhost:8080/recipe/${id}`)
-            .then(({ data }) => {
-                setRecipe(data)
+            .get(`/recipe/${id}`)
+            .then(({ data: { recipe }}) => {
+                setRecipe(recipe)
             })
 
     }, [props.params.recipeId])
     
     const handleAddToFavourites = () => {
         const recipeBody = {
-            id: recipe.recipe.uri.substr(51,50),
+            id: recipe.uri.substr(51,50),
             user_id: 1,
-            uri: recipe.recipe.uri,
-            label: recipe.recipe.label,
-            image: recipe.recipe.image,
-            yield: recipe.recipe.yield,
-            dietLabels: JSON.stringify(recipe.recipe.dietLabels),
-            healthLabels: JSON.stringify(recipe.recipe.healthLabels),
-            ingredientLines: JSON.stringify(recipe.recipe.ingredientLines),
-            calories: recipe.recipe.calories,
-            totalTime: recipe.recipe.totalTime,
-            cuisineType: JSON.stringify(recipe.recipe.cuisineType),
-            mealType:  JSON.stringify(recipe.recipe.mealType),
-            dishType: JSON.stringify(recipe.recipe.dishType)
+            uri: recipe.uri,
+            label: recipe.label,
+            image: recipe.image,
+            yield: recipe.yield,
+            dietLabels: JSON.stringify(recipe.dietLabels),
+            healthLabels: JSON.stringify(recipe.healthLabels),
+            ingredientLines: JSON.stringify(recipe.ingredientLines),
+            calories: recipe.calories,
+            totalTime: recipe.totalTime,
+            cuisineType: JSON.stringify(recipe.cuisineType),
+            mealType:  JSON.stringify(recipe.mealType),
+            dishType: JSON.stringify(recipe.dishType)
         }
         axios
-            .post('http://localhost:8080/myrecipes/add', (recipeBody))
+            .post('/myrecipes/add', (recipeBody))
             .then(({data}) => console.log(`Added recipe to MyFavourites: ${data}`))
             .catch((err) => console.error(err))
     }
@@ -41,8 +41,8 @@ function RecipePage(props) {
             <>
                 {recipe ?
                 <div>
-                    <p>{recipe.recipe.label}</p>
-                    <img src={recipe.recipe.image} alt={recipe.recipe.image} />
+                    <p>{recipe.label}</p>
+                    <img src={recipe.image} alt={recipe.image} />
                 </div>    
                 : <p>Loading...</p>
                 }

@@ -8,23 +8,25 @@ function MyRecipesList() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/myrecipes`)
+            .get(`/myrecipes`)
             .then(({ data }) => {
                 setMyRecipes(data)
             })
-
     }, [])
     
     return (
         <>
             <h1>My Recipes</h1>
             {myRecipes ?
-            <ul className='recipe-container'>
+            <ul className='recipe-list__container'>
                     {myRecipes.map((recipe) => <li
-                    className='recipe'>
-                    <Link to={`/recipe/${(recipe.uri.substr(51,50))}`}><h1>{recipe.label}</h1></Link>
-                    <img src={recipe.image} alt={recipe.label} />
-                    <p>{JSON.parse(recipe.ingredientLines)}</p>
+                    key={recipe.uri.substr(51,50)}
+                    className='recipe-list__item'>
+                    <Link to={`/recipe/${(recipe.uri.substr(51,50))}`}>
+                        <h1 className='recipe-list__item-name'>{recipe.label}</h1>
+                    </Link>
+                    <img className='recipe-list__item-image' src={recipe.image} alt={recipe.label} />
+                    <p className='recipe-list__item-ingredients'>{JSON.parse(recipe.ingredientLines)}</p>
                     </li>)}
             </ul>
             : <p>Loading...</p>}

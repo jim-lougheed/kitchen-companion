@@ -10,68 +10,45 @@ function Home() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/random`)
-            .then(({ data }) => {
-                setFeaturedRecipe(data)
+            .get(`/random`)
+            .then(({ data: { recipe } }) => {
+                setFeaturedRecipe(recipe)
             })
             .catch((err) => console.error(err))
-
     }, [])
 
     const handleAddToFavourites = () => {
         const recipeBody = {
-            id: featuredRecipe.recipe.uri.substr(51,50),
+            id: featuredRecipe.uri.substr(51,50),
             user_id: 1,
-            uri: featuredRecipe.recipe.uri,
-            label: featuredRecipe.recipe.label,
-            image: featuredRecipe.recipe.image,
-            yield: featuredRecipe.recipe.yield,
-            dietLabels: JSON.stringify(featuredRecipe.recipe.dietLabels),
-            healthLabels: JSON.stringify(featuredRecipe.recipe.healthLabels),
-            ingredientLines: JSON.stringify(featuredRecipe.recipe.ingredientLines),
-            calories: featuredRecipe.recipe.calories,
-            totalTime: featuredRecipe.recipe.totalTime,
-            cuisineType: JSON.stringify(featuredRecipe.recipe.cuisineType),
-            mealType:  JSON.stringify(featuredRecipe.recipe.mealType),
-            dishType: JSON.stringify(featuredRecipe.recipe.dishType)
+            uri: featuredRecipe.uri,
+            label: featuredRecipe.label,
+            image: featuredRecipe.image,
+            yield: featuredRecipe.yield,
+            dietLabels: JSON.stringify(featuredRecipe.dietLabels),
+            healthLabels: JSON.stringify(featuredRecipe.healthLabels),
+            ingredientLines: JSON.stringify(featuredRecipe.ingredientLines),
+            calories: featuredRecipe.calories,
+            totalTime: featuredRecipe.totalTime,
+            cuisineType: JSON.stringify(featuredRecipe.cuisineType),
+            mealType:  JSON.stringify(featuredRecipe.mealType),
+            dishType: JSON.stringify(featuredRecipe.dishType)
         }
         axios
-            .post('http://localhost:8080/myrecipes/add', (recipeBody))
+            .post('/myrecipes/add', (recipeBody))
             .then(({data}) => console.log(`Added recipe to MyFavourites: ${data}`))
             .catch((err) => console.error(err))
     }
-
-    // handleSearch = (e) => {
-    //     e.preventDefault();
-    //     const searchText = {
-    //         "search": this.state.searchInput
-    //     };
-    //     axios
-    //     .post(`http://localhost:8080/recipes`, searchText)
-    //     .then((response) => {
-    //     this.setState({
-    //         recipes: response.data
-    //     })
-    // })
-    // }
-
-    // handleChange = (e) => {
-    //     e.preventDefault();
-    //     this.setState({
-    //         searchInput: e.target.value
-    //     })
-    // }
 
         return (
             <>
                 {featuredRecipe ?
                 <div>
-                    <p>{featuredRecipe.recipe.label}</p>
-                    <img src={featuredRecipe.recipe.image} alt={featuredRecipe.recipe.image} />
+                    <Link to={`/recipe/${(featuredRecipe.uri.substr(51,50))}`}><h1>{featuredRecipe.label}</h1></Link>
+                    <img src={featuredRecipe.image} alt={featuredRecipe.image} />
                 </div>    
                 : <p>Loading...</p>
-                }
-                
+                }                
                 <button onClick={handleAddToFavourites}>Add to MyRecipes</button>
             </>
         )

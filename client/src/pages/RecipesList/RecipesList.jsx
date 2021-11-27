@@ -8,9 +8,9 @@ function RecipesList({ match: { params }}) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/recipes/${params.search}`)
-            .then(({ data }) => {
-                setRecipes(data)
+            .get(`/recipes/${params.search}`)
+            .then(({ data: { recipe }}) => {
+                setRecipes(recipe)
             })
 
     }, [params.search])
@@ -19,13 +19,15 @@ function RecipesList({ match: { params }}) {
         <>
             <h1>Search Results</h1>
             {recipes ?
-            <ul className='recipe-container'>
+            <ul className='recipe-list__container'>
                     {recipes.map((recipe) => <li
-                    key={recipe.recipe.uri.substr(51,50)}
-                    className='recipe'>
-                    <Link to={`/recipe/${(recipe.recipe.uri.substr(51,50))}`}><h1>{recipe.recipe.label}</h1></Link>
-                    <img src={recipe.recipe.image} alt={recipe.recipe.label} />
-                    <p>{recipe.recipe.ingredients.length} ingredients</p>
+                    key={recipe.uri.substr(51,50)}
+                    className='recipe-list__item'>
+                    <Link to={`/recipe/${(recipe.uri.substr(51,50))}`}>
+                        <h1 className='recipe-list__item-name'>{recipe.label}</h1>
+                    </Link>
+                    <img className='recipe-list__item-image' src={recipe.image} alt={recipe.label} />
+                    <p className='recipe-list__item-ingredients'>{recipe.ingredients.length} ingredients</p>
                     </li>)}
             </ul>
             : <p>Loading...</p>}
