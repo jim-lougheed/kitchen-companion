@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import ListedRecipe from '../../components/ListedRecipe';
@@ -12,20 +11,21 @@ function MyRecipesList() {
         axios
             .get(`/myrecipes`)
             .then(({ data }) => {
+                data.forEach((recipe) => {
+                    recipe.ingredientLines = JSON.parse(recipe.ingredientLines)
                 setMyRecipes(data)
             })
     }, [])
-    
-    return (
+    })
+
+    return (    
         <>
             <h1>My Recipes</h1>
             {myRecipes ?
             <ul className='recipe-list__container'>
-                    {myRecipes.map((recipe) => {
-                        <li key={recipe.uri.substr(51,50)} className='recipe-list__item'>
-                            <ListedRecipe recipe={recipe}/>
-                        </li>
-                    })}
+                {myRecipes.map((recipe) => {
+                    return <ListedRecipe key={recipe.uri.substr(51,50)} componentClassName='recipe-list' recipe={recipe}/>
+                })}
             </ul>
             : <p>Loading...</p>}
         </>

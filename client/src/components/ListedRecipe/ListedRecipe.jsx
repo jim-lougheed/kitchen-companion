@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
 
-function ListedRecipe(props) {
-    console.log(props);
+function ListedRecipe({ componentClassName, recipe: { uri, label, image, ingredientLines} }) {
     return (
-            <div>
-                    <Link to={`/recipe/${(props.recipe.uri.substr(51,50))}`}>
-                        <h1 className='recipe-list__item-name'>{props.recipe.label}</h1>
-                    </Link>
-                    <img className='recipe-list__item-image' src={props.recipe.image} alt={props.recipe.label} />
-                    <p className='recipe-list__item-ingredients'>{JSON.parse(props.recipe.ingredientLines)}</p>
-            </div>
+        <li className={`${componentClassName}__item`}>
+            <Link to={`/recipe/${(uri.substr(51,50))}`}>
+                <h1 className={`${componentClassName}__item-name`}>{label}</h1>
+            </Link>
+            <img className={`${componentClassName}__item-image`} src={image} alt={label} />
+            <p className={`${componentClassName}__item-ingredients`}>{(ingredientLines)}</p>
+        </li>
     )
 }
 

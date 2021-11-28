@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+
+import ListedRecipe from '../../components/ListedRecipe';
 
 function RecipesList({ match: { params }}) {
 
@@ -9,8 +10,8 @@ function RecipesList({ match: { params }}) {
     useEffect(() => {
         axios
             .get(`/recipes/${params.search}`)
-            .then(({ data: { recipe }}) => {
-                setRecipes(recipe)
+            .then(({ data }) => {
+                setRecipes(data)
             })
 
     }, [params.search])
@@ -20,15 +21,9 @@ function RecipesList({ match: { params }}) {
             <h1>Search Results</h1>
             {recipes ?
             <ul className='recipe-list__container'>
-                    {recipes.map((recipe) => <li
-                    key={recipe.uri.substr(51,50)}
-                    className='recipe-list__item'>
-                    <Link to={`/recipe/${(recipe.uri.substr(51,50))}`}>
-                        <h1 className='recipe-list__item-name'>{recipe.label}</h1>
-                    </Link>
-                    <img className='recipe-list__item-image' src={recipe.image} alt={recipe.label} />
-                    <p className='recipe-list__item-ingredients'>{recipe.ingredients.length} ingredients</p>
-                    </li>)}
+                    {recipes.map((recipe) => {
+                    return <ListedRecipe key={recipe.recipe.uri.substr(51,50)} componentClassName='recipe-list' recipe={recipe.recipe} />
+                    })}
             </ul>
             : <p>Loading...</p>}
         </>
