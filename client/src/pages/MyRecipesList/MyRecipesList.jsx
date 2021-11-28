@@ -13,8 +13,8 @@ function MyRecipesList() {
             .then(({ data }) => {
                 data.forEach((recipe) => {
                     recipe.ingredientLines = JSON.parse(recipe.ingredientLines)
-                setMyRecipes(data)
             })
+            setMyRecipes(data)
     }, [])
     })
 

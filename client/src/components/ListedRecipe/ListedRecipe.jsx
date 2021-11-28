@@ -7,7 +7,9 @@ function ListedRecipe({ componentClassName, recipe: { uri, label, image, ingredi
                 <h1 className={`${componentClassName}__item-name`}>{label}</h1>
             </Link>
             <img className={`${componentClassName}__item-image`} src={image} alt={label} />
-            <p className={`${componentClassName}__item-ingredients`}>{(ingredientLines)}</p>
+            {ingredientLines.map((ingredientLine) => {
+                return <p className={`${componentClassName}__item-ingredients`}>{ingredientLine}</p>
+            })}
         </li>
     )
 }
