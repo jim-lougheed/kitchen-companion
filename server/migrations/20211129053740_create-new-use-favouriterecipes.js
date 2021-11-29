@@ -7,18 +7,20 @@ exports.up = function(knex) {
     }).createTable('favourite-recipes', (table) => {
         table.string('id').notNullable(); 
         table.integer('user_id').unsigned().notNullable();
-        table.string('uri').notNullable();
-        table.string('label').notNullable();
+        table.string('summary').notNullable().v;
+        table.string('title').notNullable();
         table.string('image').notNullable();
-        table.integer('yield');
-        table.json('dietLabels');
-        // table.json('healthLabels');
-        // table.json('ingredientLines');
-        table.integer('calories').notNullable();
-        table.integer('totalTime');
-        // table.json('cuisineType');
-        // table.json('mealType');
-        // table.json('dishType');
+        table.json('analyzedInstructions');
+        table.json('cuisines');
+        table.boolean('dairyFree');
+        table.json('diets');
+        table.json('dishTypes');
+        table.json('extendedIngredients');
+        table.boolean('glutenFree');
+        table.integer('servings');
+        table.integer('readyInMinutes');
+        table.boolean('vegan');
+        table.boolean('vegetarian');
         table
             .foreign('user_id')
             .references('id')

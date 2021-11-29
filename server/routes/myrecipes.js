@@ -45,7 +45,7 @@ router
     .get((req, res) => {
         knex
         .select('*')
-        .where('ingredientLines', 'like', `%${req.params.search}%`)
+        .where('extendedIngredients', 'like', `%${req.params.search}%`)
         .from('favourite-recipes')
         .then((data) => {
             res.status(200).json(data)

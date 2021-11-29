@@ -11,20 +11,18 @@ function MyRecipesList() {
         axios
             .get(`/myrecipes`)
             .then(({ data }) => {
-                data.forEach((recipe) => {
-                    recipe.ingredientLines = JSON.parse(recipe.ingredientLines)
+                setMyRecipes(data)
             })
-            setMyRecipes(data)
+            .catch((err) => console.error(err))
     }, [])
-    })
-
+    
     return (    
         <>
             <h1>My Recipes</h1>
             {myRecipes ?
             <ul className='recipe-list__container'>
                 {myRecipes.map((recipe) => {
-                    return <ListedRecipe key={recipe.uri.substr(51,50)} componentClassName='recipe-list' recipe={recipe}/>
+                    return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
                 })}
             </ul>
             : <p>Loading...</p>}

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import RecipePage from "../RecipePage/RecipePage";
+import ActiveRecipe from '../../components/ActiveRecipe';
 
 
 function Recipe() {
@@ -11,7 +11,7 @@ function Recipe() {
         return (
             <>
                 <h1>Recipe</h1>
-                <RecipePage params={params} />
+                <ActiveRecipe params={params} />
             </>
         )
 }

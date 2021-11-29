@@ -11,28 +11,30 @@ function Home() {
     useEffect(() => {
         axios
             .get(`/random`)
-            .then(({ data: { recipe } }) => {
-                setFeaturedRecipe(recipe)
+            .then(({ data: { recipes: recipes }}) => {
+                setFeaturedRecipe(recipes[0])
             })
             .catch((err) => console.error(err))
     }, [])
 
     const handleAddToFavourites = () => {
         const recipeBody = {
-            id: featuredRecipe.uri.substr(51,50),
+            id: featuredRecipe.id,
             user_id: 1,
-            uri: featuredRecipe.uri,
-            label: featuredRecipe.label,
+            summary: featuredRecipe.summary.substr(0, 1200),
+            title: featuredRecipe.title,
             image: featuredRecipe.image,
-            yield: featuredRecipe.yield,
-            dietLabels: JSON.stringify(featuredRecipe.dietLabels),
-            healthLabels: JSON.stringify(featuredRecipe.healthLabels),
-            ingredientLines: JSON.stringify(featuredRecipe.ingredientLines),
-            calories: featuredRecipe.calories,
-            totalTime: featuredRecipe.totalTime,
-            cuisineType: JSON.stringify(featuredRecipe.cuisineType),
-            mealType:  JSON.stringify(featuredRecipe.mealType),
-            dishType: JSON.stringify(featuredRecipe.dishType)
+            analyzedInstructions: JSON.stringify(featuredRecipe.analyzedInstructions),
+            cuisines: JSON.stringify(featuredRecipe.cuisines),
+            dairyFree: featuredRecipe.dairyFree,
+            diets: JSON.stringify(featuredRecipe.diets),
+            dishTypes: JSON.stringify(featuredRecipe.dishTypes),
+            extendedIngredients: JSON.stringify(featuredRecipe.extendedIngredients),
+            glutenFree: featuredRecipe.glutenFree,
+            servings: featuredRecipe.servings,
+            readyInMinutes: featuredRecipe.readyInMinutes,
+            vegan: featuredRecipe.vegan,
+            vegetarian: featuredRecipe.vegetarian
         }
         axios
             .post('/myrecipes', (recipeBody))
@@ -44,7 +46,7 @@ function Home() {
             <>
                 {featuredRecipe ?
                 <div>
-                    <Link to={`/recipe/${(featuredRecipe.uri.substr(51,50))}`}><h1>{featuredRecipe.label}</h1></Link>
+                    <Link to={`/recipe/${featuredRecipe.id}`}><h1>{featuredRecipe.title}</h1></Link>
                     <img src={featuredRecipe.image} alt={featuredRecipe.image} />
                 </div>    
                 : <p>Loading...</p>

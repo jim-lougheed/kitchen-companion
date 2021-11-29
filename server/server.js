@@ -27,12 +27,17 @@ app.use('/myrecipes', myrecipesRoutes);
  */
 app
     .get('/random', (req, res) => {
-        const randomNumber = Math.floor(Math.random()*10);
-        const randomSearchArray = ['chicken', 'mushrooms', 'beef', 'tomatoes', 'avocadoes', 'pasta', 'potatoes', 'pork', 'cheese', 'rice'];
         axios
-            .get(`${process.env.API_URL}?type=public&q=${randomSearchArray[randomNumber]}${process.env.API_KEY}&random=true`)
-            .then(({ data: { hits } }) => res.send(hits[randomNumber]))
+            .get(`${process.env.API_URL}random${process.env.API_KEY}`)
+            .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
+
+        // const randomNumber = Math.floor(Math.random()*10);
+        // const randomSearchArray = ['chicken', 'mushrooms', 'beef', 'tomatoes', 'avocadoes', 'pasta', 'potatoes', 'pork', 'cheese', 'rice'];
+        // axios
+        //     .get(`${process.env.API_URL}?type=public&q=${randomSearchArray[randomNumber]}${process.env.API_KEY}&random=true`)
+        //     .then(({ data: { hits } }) => res.send(hits[randomNumber]))
+        //     .catch((err) => console.error(err))
     })
 
 /*
@@ -41,9 +46,13 @@ app
 app
     .get('/recipe/:id', (req, res) => {
         axios
-            .get(`${process.env.API_URL}/${req.params.id}?type=public${process.env.API_KEY}`)
+            .get(`${process.env.API_URL}${req.params.id}/information${process.env.API_KEY}`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
+        // axios
+        //     .get(`${process.env.API_URL}/${req.params.id}?type=public${process.env.API_KEY}`)
+        //     .then(({ data }) => res.send(data))
+        //     .catch((err) => console.error(err))
     })
 
 /*
@@ -52,8 +61,8 @@ app
 app
     .get('/recipes/:category', (req, res) => {
     axios
-        .get(`${process.env.API_URL}?type=public&q=${req.params.category}${process.env.API_KEY}`)
-        .then(({ data: { hits } }) => res.send(hits))
+        .get(`${process.env.API_URL}complexSearch${process.env.API_KEY}&query=${req.params.category}`)
+        .then(({ data }) => res.send(data))
         .catch((err) => console.error(err))
 })
 
