@@ -25,16 +25,33 @@ router
 */
     .post((req, res) => {
         knex('favourite-recipes')
-            .insert(req.body)
-            .then((favouritedRecipe) => {
-                res.status(201).json(favouritedRecipe)
+            .select('*')
+            .where('id', req.body.id)
+            .then((foundRecipe) => {
+                if (!foundRecipe[0]){
+                    res.status(201).send('Successfully added to MyRecipes')
+                    return knex('favourite-recipes').insert(req.body)
+                } else {
+                    res.send('Recipe already saved')
+                }
             })
             .catch((err) => {
-                console.log(err)
+                console.error(err)
                 res.status(400).json({
-                    message: 'Error adding recipe to favourites'
+                    message:'Error adding recipe to favourites'
                 })
             })
+
+            // .insert(req.body)
+            // .then((favouritedRecipe) => {
+            //     res.status(201).json(favouritedRecipe)
+            // })
+            // .catch((err) => {
+            //     console.log(err)
+            //     res.status(400).json({
+            //         message: 'Error adding recipe to favourites'
+            //     })
+            // })
     })
 
 router
