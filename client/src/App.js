@@ -56,7 +56,7 @@ class App extends React.Component {
           <Route path='/myrecipes/all' exact component={MyRecipesList} />
           <Route path='/myrecipes' exact component={SearchMyRecipes} />
           <Route path='/myrecipes/:search' component={MyRecipesSearchResults} />
-          <Route path='/dinnerselector' component={DinnerSelector} />
+          <Route path='/dinnerselector/:ingredients' render={(renderProps) => <DinnerSelector ingredients={this.state} {...renderProps}/>} />
           <Route path='/myshoppinglist' component={MyShoppingList} />
         </Switch>
       </BrowserRouter>

@@ -72,7 +72,7 @@ app
 app
     .get('/recipes/byIngredients/:ingredients', (req, res) => {
         axios
-            .get(`${process.env.API_URL}findByIngredients${process.env.API_KEY}&ingredients=${req.params.ingredients}&number=6&ranking=1&ignorePantry`)
+            .get(`${process.env.API_URL}findByIngredients${process.env.API_KEY}&ingredients=${req.params.ingredients}&number=20&ranking=1&ignorePantry`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
     })

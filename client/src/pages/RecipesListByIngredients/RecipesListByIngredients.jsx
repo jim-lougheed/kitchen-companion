@@ -12,6 +12,7 @@ function RecipesListByIngredients({ match: { params }}) {
         axios
             .get(`/recipes/byIngredients/${params.ingredients}`)
             .then(({ data }) => {
+                console.log(data)
                 setRecipes(data)
             })
             .catch((err) => console.error(err))

@@ -20,6 +20,17 @@ function SearchRecipes({ ingredients }) {
         history.push(`/recipes/byIngredients/${listOfIngredients}`)
     }
 
+    const dinnerSelectorByIngredientsOnHand = (e) => {
+        e.preventDefault();
+        let listOfIngredients = '';
+        for (const key in ingredients) {
+            if (ingredients[key] === true) {
+            listOfIngredients += `${key},+`; 
+            }
+        }
+        history.push(`/dinnerselector/${listOfIngredients}`)
+    }
+
     
     return (
         <>
@@ -31,6 +42,11 @@ function SearchRecipes({ ingredients }) {
                 </form>
                 <form onSubmit={searchByIngredientsOnHand}>
                     <label>Search by whats in your fridge
+                    </label>
+                    <button type='submit'>Search</button>
+                </form>
+                <form onSubmit={dinnerSelectorByIngredientsOnHand}>
+                    <label>Use the dinner wheel!
                     </label>
                     <button type='submit'>Search</button>
                 </form>
