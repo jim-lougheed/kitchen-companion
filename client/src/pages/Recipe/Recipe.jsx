@@ -4,14 +4,14 @@ import { useParams } from 'react-router-dom';
 import ActiveRecipe from '../../components/ActiveRecipe';
 
 
-function Recipe() {
+function Recipe({addToShoppingList}) {
     
     const params = useParams();
     
         return (
             <>
                 <h1>Recipe</h1>
-                <ActiveRecipe params={params} />
+                <ActiveRecipe params={params} addToShoppingList={addToShoppingList}/>
             </>
         )
 }

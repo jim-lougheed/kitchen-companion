@@ -20,8 +20,8 @@ function Navbar() {
                 <Link to='/home'>
                     <p>Featured</p>
                 </Link>
-                <Link to='/recipes'>
-                    <p>Search Recipes</p>
+                <Link to='/myrecipes/all'>
+                    <p>MyRecipes</p>
                 </Link>
                 <Link to='/myshoppinglist'>
                     <p>My Shopping List</p>
@@ -35,7 +35,7 @@ function Navbar() {
                     <button type='submit'>Search</button>
                 </form>
 
-                <Link to='/recipes'>
+                <Link to='/recipes/search'>
                     <p>Search</p>
                 </Link>
                 <Link to='#'>

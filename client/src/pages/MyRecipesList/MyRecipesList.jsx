@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import ListedRecipe from '../../components/ListedRecipe';
@@ -19,6 +20,9 @@ function MyRecipesList() {
     return (    
         <>
             <h1>My Recipes</h1>
+            <Link to='/myrecipes/search'>
+                <button>Search MyRecipes</button>
+            </Link>
             {myRecipes ?
             <ul className='recipe-list__container'>
                 {myRecipes.map((recipe) => {

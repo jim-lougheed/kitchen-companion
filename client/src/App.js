@@ -32,13 +32,21 @@ class App extends React.Component {
     greenpeppers: false,
     olives: false,
     cabbage: false,
-    lettuce: false
+    lettuce: false,
+    shoppingList: ['celery', 'lettuce']
   }
 
   toggleIngredientsOnHand = (e) => {
     this.setState(prevState => ({
       [e.target.name]: !prevState[e.target.name]
     }))
+  }
+
+  addToShoppingList = (e, item) => {
+    e.preventDefault();
+    this.setState({
+      shoppingList: [...this.state.shoppingList, item]
+    })
   }
 
   render() {
@@ -49,15 +57,15 @@ class App extends React.Component {
         <IngredientsOnHand toggleIngredientsOnHand={this.toggleIngredientsOnHand} ingredients={this.state} />
         <Switch>
           <Route path='/home' exact component={Home} />
-          <Route path='/recipes' exact render={() => <SearchRecipes ingredients={this.state}/> }/>
+          <Route path='/recipes/search' exact render={() => <SearchRecipes ingredients={this.state}/> }/>
           <Route path='/recipes/byIngredients/:ingredients' component={RecipesListByIngredients} />
           <Route path='/recipes/:search' component={RecipesList} />
-          <Route path='/recipe/:recipeId' component={Recipe} />
+          <Route path='/recipe/:recipeId' render={() => <Recipe addToShoppingList={this.addToShoppingList} /> } />
           <Route path='/myrecipes/all' exact component={MyRecipesList} />
-          <Route path='/myrecipes' exact component={SearchMyRecipes} />
-          <Route path='/myrecipes/:search' component={MyRecipesSearchResults} />
+          <Route path='/myrecipes/search' exact component={SearchMyRecipes} />
+          <Route path='/myrecipes/:search' exact component={MyRecipesSearchResults} />
           <Route path='/dinnerselector/:ingredients' render={(renderProps) => <DinnerSelector ingredients={this.state} {...renderProps}/>} />
-          <Route path='/myshoppinglist' component={MyShoppingList} />
+          <Route path='/myshoppinglist' render={() => <MyShoppingList shoppingList={this.state.shoppingList} addToShoppingList={this.addToShoppingList} /> } />
         </Switch>
       </BrowserRouter>
     </div>

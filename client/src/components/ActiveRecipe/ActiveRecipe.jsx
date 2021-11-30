@@ -4,6 +4,7 @@ import axios from "axios";
 import './ActiveRecipe.scss';
 
 function ActiveRecipe(props) {
+    console.log(props)
     const [recipe, setRecipe] = useState(null);
 
     useEffect(() => {
@@ -53,7 +54,10 @@ function ActiveRecipe(props) {
                     <div className='recipe__name-directions-container'>
                         <h2>{recipe.title}</h2>
                         {recipe.extendedIngredients.map((ingredient) => {
-                            return <p key={ingredient.id}>{ingredient.originalString}</p>
+                            return <form onSubmit={(e) => props.addToShoppingList(e, e.target.children[0].attributes.name.nodeValue)}>
+                            <p key={ingredient.id} name={ingredient.name}>{ingredient.originalString}</p>
+                            <button type='submit'>+</button>
+                            </form>
                         })}
                         {recipe.analyzedInstructions &&
                             recipe.analyzedInstructions[0].steps.map((step) => {

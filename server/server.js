@@ -60,6 +60,7 @@ app
  */
 app
     .get('/recipes/:category', (req, res) => {
+        console.log(req.params.category)
     axios
         .get(`${process.env.API_URL}complexSearch${process.env.API_KEY}&query=${req.params.category}`)
         .then(({ data }) => res.send(data))
