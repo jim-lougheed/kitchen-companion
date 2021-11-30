@@ -66,6 +66,17 @@ app
         .catch((err) => console.error(err))
 })
 
+/*
+ *GET 6 recipes by ingredients on-hand
+ */
+app
+    .get('/recipes/byIngredients/:ingredients', (req, res) => {
+        axios
+            .get(`${process.env.API_URL}findByIngredients${process.env.API_KEY}&ingredients=${req.params.ingredients}&number=6&ranking=1&ignorePantry`)
+            .then(({ data }) => res.send(data))
+            .catch((err) => console.error(err))
+    })
+
 
 
 app.listen(PORT, console.log(`Server running on port ${PORT}`));

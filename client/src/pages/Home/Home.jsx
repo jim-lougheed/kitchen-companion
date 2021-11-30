@@ -11,7 +11,7 @@ function Home() {
     useEffect(() => {
         axios
             .get(`/random`)
-            .then(({ data: { recipes: recipes }}) => {
+            .then(({ data: { recipes }}) => {
                 setFeaturedRecipe(recipes[0])
             })
             .catch((err) => console.error(err))

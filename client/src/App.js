@@ -1,4 +1,5 @@
 import './App.css';
+import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
@@ -14,16 +15,42 @@ import SearchMyRecipes from './pages/SearchMyRecipes';
 import MyRecipesSearchResults from './pages/MyRecipesSearchResults';
 import DinnerSelector from './pages/DinnerSelector';
 import MyShoppingList from './pages/MyShoppingList';
+import RecipesListByIngredients from './pages/RecipesListByIngredients';
 
-function App() {
+class App extends React.Component {
+
+  state = {
+    chicken: false,
+    beef: false,
+    pork: false,
+    spinach: false,
+    tomatoes: false,
+    mushrooms: false,
+    potatos: false,
+    onions: false,
+    garlic: false,
+    greenpeppers: false,
+    olives: false,
+    cabbage: false,
+    lettuce: false
+  }
+
+  toggleIngredientsOnHand = (e) => {
+    this.setState(prevState => ({
+      [e.target.name]: !prevState[e.target.name]
+    }))
+  }
+
+  render() {
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        <IngredientsOnHand />
+        <IngredientsOnHand toggleIngredientsOnHand={this.toggleIngredientsOnHand} ingredients={this.state} />
         <Switch>
           <Route path='/home' exact component={Home} />
-          <Route path='/recipes' exact component={SearchRecipes} />
+          <Route path='/recipes' exact render={() => <SearchRecipes ingredients={this.state}/> }/>
+          <Route path='/recipes/byIngredients/:ingredients' component={RecipesListByIngredients} />
           <Route path='/recipes/:search' component={RecipesList} />
           <Route path='/recipe/:recipeId' component={Recipe} />
           <Route path='/myrecipes/all' exact component={MyRecipesList} />
@@ -35,6 +62,7 @@ function App() {
       </BrowserRouter>
     </div>
   );
+  }
 }
 
 export default App;

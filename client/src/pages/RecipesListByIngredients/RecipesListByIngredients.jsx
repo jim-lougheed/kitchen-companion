@@ -3,18 +3,20 @@ import axios from 'axios';
 
 import ListedRecipe from '../../components/ListedRecipe';
 
-function RecipesList({ match: { params }}) {
+function RecipesListByIngredients({ match: { params }}) {
+    console.log(params)
 
     const [recipes, setRecipes] = useState(null);
     
     useEffect(() => {
         axios
-            .get(`/recipes/${params.search}`)
+            .get(`/recipes/byIngredients/${params.ingredients}`)
             .then(({ data }) => {
-                setRecipes(data.results)
+                setRecipes(data)
             })
+            .catch((err) => console.error(err))
 
-    }, [params.search])
+    }, [params.ingredients])
     
     return (
         <>
@@ -30,4 +32,4 @@ function RecipesList({ match: { params }}) {
     )
 }
 
-export default RecipesList;
+export default RecipesListByIngredients;

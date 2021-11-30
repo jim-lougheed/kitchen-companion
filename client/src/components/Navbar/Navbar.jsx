@@ -1,8 +1,16 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import './Navbar.scss';
 
 function Navbar() {
+    let history = useHistory(); 
+
+    const searchAllRecipes = (e) => {
+        e.preventDefault();
+        
+        history.push(`/recipes/${e.target[0].value}`)
+    }
+
     return (
         <nav className='navbar'>
             <div className='div-container .div-container--left'>
@@ -20,7 +28,12 @@ function Navbar() {
                 </Link>
             </div>
             <div className='div-container .div-container--right'>
-                <input type='text' placeholder='Search...'/>
+                <form onSubmit={searchAllRecipes}>
+                    <label>Search recipes...
+                        <input type='text' name='recipeSearch' placeholder='Enter a search word'/>
+                    </label>
+                    <button type='submit'>Search</button>
+                </form>
 
                 <Link to='/recipes'>
                     <p>Search</p>
