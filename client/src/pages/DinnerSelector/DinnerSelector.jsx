@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Winwheel from "winwheel";
 import axios from "axios";
 
 function DinnerSelector({ ingredients, match: { params } }) {
   const [recipes, setRecipes] = useState(null);
 
+  const history = useHistory();
+
   useEffect(() => {
     axios
     .get(`/recipes/byIngredients/${params.ingredients}`)
     .then(({ data }) => {
+      console.log(data)
         fillWheel(data);
         setRecipes(data)
     })
@@ -25,28 +29,34 @@ function DinnerSelector({ ingredients, match: { params } }) {
       responsive: true,
       segments: [
         {
+          id: data[2].id,
           fillStyle: "#FBF46D",
-          text: "111111111111111111111111111111".substring(0, 20) + "...",
+          text: data[2].title.substring(0, 20) + "...",
         },
         {
+          id: data[6].id,
           fillStyle: "#77E4D4",
-          text: "222222222222222222222222222".substring(0, 20) + "...",
+          text: data[6].title.substring(0, 20) + "...",
         },
         {
+          id: data[11].id,
           fillStyle: "#B4FE98",
-          text: "33333333333333333333333333333".substring(0, 20) + "...",
+          text: data[11].title.substring(0, 20) + "...",
         },
         {
+          id: data[13].id,
           fillStyle: "#FBF46D",
-          text: "43444444444444444444444444444".substring(0, 20) + "...",
+          text: data[13].title.substring(0, 20) + "...",
         },
         {
+          id: data[16].id,
           fillStyle: "#77E4D4",
-          text: "555555555555555555555555555".substring(0, 20) + "...",
+          text: data[16].title.substring(0, 20) + "...",
         },
         {
+          id: data[19].id,
           fillStyle: "#B4FE98",
-          text: "666666666666666666666".substring(0, 20) + "...",
+          text: data[19].title.substring(0, 20) + "...",
         },
       ],
       lineWidth: 3,
@@ -70,7 +80,7 @@ function DinnerSelector({ ingredients, match: { params } }) {
 
   function alertPrize() {
     let winningSegment = window.winwheel.getIndicatedSegment();
-    console.log(winningSegment);
+    setTimeout(history.push(`/recipe/${winningSegment.id}`), 1000)
   }
 
   return (
