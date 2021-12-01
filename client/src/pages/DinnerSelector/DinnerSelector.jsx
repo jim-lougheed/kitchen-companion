@@ -87,7 +87,6 @@ function DinnerSelector({ ingredients, match: { params } }) {
         setWinningRecipe(data)
       })
       .catch((err) => console.error(err))
-    // setTimeout(history.push(`/recipe/${winningSegment.id}`), 1000)
   }
 
   return (
