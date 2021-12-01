@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Winwheel from "winwheel";
 import axios from "axios";
+import ListedRecipe from "../../components/ListedRecipe";
 
 function DinnerSelector({ ingredients, match: { params } }) {
-  const [recipes, setRecipes] = useState(null);
+
+  const [winningRecipe, setWinningRecipe] = useState(null);
 
   const history = useHistory();
 
@@ -12,9 +14,7 @@ function DinnerSelector({ ingredients, match: { params } }) {
     axios
     .get(`/recipes/byIngredients/${params.ingredients}`)
     .then(({ data }) => {
-      console.log(data)
         fillWheel(data);
-        setRecipes(data)
     })
     .catch((err) => console.error(err))
   }, [params.recipes]);
@@ -66,7 +66,7 @@ function DinnerSelector({ ingredients, match: { params } }) {
         duration: 5,
         spins: 8,
         callbackFinished: () => {
-          alertPrize();
+          handleWinningSegment();
         },
       },
     });
@@ -78,9 +78,16 @@ function DinnerSelector({ ingredients, match: { params } }) {
     window.winwheel.startAnimation();
   }
 
-  function alertPrize() {
+  function handleWinningSegment() {
     let winningSegment = window.winwheel.getIndicatedSegment();
-    setTimeout(history.push(`/recipe/${winningSegment.id}`), 1000)
+    axios
+      .get(`/recipe/${winningSegment.id}`)
+      .then(({ data }) => {
+        console.log(data)
+        setWinningRecipe(data)
+      })
+      .catch((err) => console.error(err))
+    // setTimeout(history.push(`/recipe/${winningSegment.id}`), 1000)
   }
 
   return (
@@ -89,6 +96,9 @@ function DinnerSelector({ ingredients, match: { params } }) {
       <canvas id="myCanvas" width="880" height="500" onClick={startSpin}>
         Canvas not supported, use another browser.
       </canvas>
+      {winningRecipe &&
+      <ListedRecipe key={winningRecipe.id} componentClassName='recipe-list' recipe={winningRecipe} />
+      }
     </>
   );
 }

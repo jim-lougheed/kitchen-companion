@@ -1,22 +1,34 @@
 import { useEffect, useState } from 'react';
 import axios from "axios";
 
-import './ActiveRecipe.scss';
+import RecipeTags from '../RecipeTags';
+import ListedRecipe from '../ListedRecipe';
 
-function ActiveRecipe(props) {
-    console.log(props)
+import './ActiveRecipe.scss';
+import ListedRecipeNoImage from '../ListedRecipeNoImage';
+
+
+function ActiveRecipe({ params, addToShoppingList }) {
     const [recipe, setRecipe] = useState(null);
+    const [relatedRecipes, setRelatedRecipes] = useState(null);
 
     useEffect(() => {
-        const id = props.params.recipeId;
+        const id = params.recipeId;
         axios
             .get(`/recipe/${id}`)
-            .then((result) => {
-                setRecipe(result.data)
+            .then(({ data }) => {
+                setRecipe(data)
             })
             .catch((err) => console.error(err))
+        
+        axios
+            .get(`/recipe/relatedTo/${id}`)
+            .then(({ data }) => {
+                console.log(data)
+                setRelatedRecipes(data)
+            })
 
-    }, [props.params.recipeId])
+    }, [params.recipeId])
     
     const handleAddToFavourites = () => {
         const recipeBody = {
@@ -46,6 +58,7 @@ function ActiveRecipe(props) {
         return (
             <>
                 {recipe ?
+                <div>
                 <div className='recipe__container'>
                     <div className='recipe__img-ingredients-container'>
                         <img src={recipe.image} alt={recipe.image} />
@@ -54,7 +67,7 @@ function ActiveRecipe(props) {
                     <div className='recipe__name-directions-container'>
                         <h2>{recipe.title}</h2>
                         {recipe.extendedIngredients.map((ingredient) => {
-                            return <form onSubmit={(e) => props.addToShoppingList(e, e.target.children[0].attributes.name.nodeValue)}>
+                            return <form onSubmit={(e) => addToShoppingList(e, e.target.children[0].attributes.name.nodeValue)}>
                             <p key={ingredient.id} name={ingredient.name}>{ingredient.originalString}</p>
                             <button type='submit'>+</button>
                             </form>
@@ -64,10 +77,20 @@ function ActiveRecipe(props) {
                                 return <p key={step.number}>{step.step}</p>
                         })}
                     </div>
+                    </div>
+                    <button onClick={handleAddToFavourites}>Add to MyRecipes</button>
+                    <RecipeTags recipe={recipe}/>
+                    <ul className='related-recipes__container'>
+                    {relatedRecipes &&
+                        relatedRecipes.map((recipe) => {
+                    return <ListedRecipeNoImage key={recipe.id} recipe={recipe} />
+                    })}
+                </ul>
                 </div>    
                 : <p>Loading...</p>
                 }
-                <button onClick={handleAddToFavourites}>Add to MyRecipes</button>
+                
+                
             </>
         )
 }
