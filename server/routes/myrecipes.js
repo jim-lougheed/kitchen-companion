@@ -38,7 +38,7 @@ router
             .catch((err) => {
                 console.error(err)
                 res.status(400).json({
-                    message:'Error adding recipe to favourites'
+                    message: 'Error adding recipe to favourites'
                 })
             })
 
@@ -52,7 +52,29 @@ router
             //         message: 'Error adding recipe to favourites'
             //     })
             // })
+    })    
+
+router
+    .route('/:id')
+/*
+*DELETE single recipe from database
+*/
+    .delete((req, res) => {
+        knex('favourite-recipes')
+        .select('*')
+        .where('id', req.params.id)
+        .delete()
+        .then(() => {
+            res.send(`Successfully deleted recipe id ${req.params.id}`)
+        })
+        .catch((err) => {
+            console.error(err)
+            res.json({
+                message: 'Error deleting recipe from favourites'
+            })
+        })
     })
+
 
 router
     .route('/:search')
