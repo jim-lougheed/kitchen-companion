@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import ListedRecipe from '../../components/ListedRecipe';
+
 function MyRecipesSearchResults({ match: { params }}) {
+    const keyword = (params.search.substring(0, (params.search.length-21)))
+    const vegetarian = (params.search.substring((params.search.length-8), (params.search.length-9)))
+    const vegan = (params.search.substring((params.search.length-1), (params.search.length)))
+    console.log(keyword, vegetarian, vegan)
+
     const [myRecipes, setMyRecipes] = useState(null);
 
     useEffect(() => {
         axios
-            .get(`/myrecipes/${params.search}`)
+            .get(`/myrecipes`)
             .then(({ data }) => {
                 setMyRecipes(data)
             })
@@ -19,15 +25,11 @@ function MyRecipesSearchResults({ match: { params }}) {
             <h1>Search Results</h1>
             {myRecipes ?
             <ul className='recipe-list__container'>
-                    {myRecipes.map((recipe) => <li
-                    key={recipe.uri.substr(51,50)}
-                    className='recipe-list__item'>
-                    <Link to={`/recipe/${(recipe.uri.substr(51,50))}`}>
-                        <h1 className='recipe-list__item-name'>{recipe.label}</h1>
-                    </Link>
-                    <img className='recipe-list__item-image' src={recipe.image} alt={recipe.label} />
-                    <p className='recipe-list__item-ingredients'>{JSON.parse(recipe.ingredientLines)}</p>
-                    </li>)}
+                {myRecipes.map((recipe) => {
+                    if (recipe.extendedIngredients.includes(keyword)){
+                    return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
+                    }
+                })}
             </ul>
             : <p>Loading...</p>}
         </>

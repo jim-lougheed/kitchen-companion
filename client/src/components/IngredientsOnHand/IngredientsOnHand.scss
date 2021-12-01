@@ -1,0 +1,16 @@
+label {
+    display: block;
+}
+
+.ingredients-checklist {
+    border-left: 1px solid black;
+    height: 100vh;
+    left: 88vw;
+    position: absolute;
+    width: 10%;
+
+    &__title {
+        margin-top: 0;
+        padding-top: 1rem;
+    }
+}

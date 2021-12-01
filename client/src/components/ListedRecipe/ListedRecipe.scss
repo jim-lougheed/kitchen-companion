@@ -1,0 +1,23 @@
+.recipe-list {
+
+    &__item {
+        display: flex;
+        height: 300px;
+    }
+
+    &__item-name {
+        width: 300px;
+    }
+
+    &__item-image {
+        height: 300px;
+    }
+
+    &__item-ingredients-container {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 500px;
+    }
+}
