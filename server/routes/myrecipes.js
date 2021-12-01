@@ -41,17 +41,6 @@ router
                     message: 'Error adding recipe to favourites'
                 })
             })
-
-            // .insert(req.body)
-            // .then((favouritedRecipe) => {
-            //     res.status(201).json(favouritedRecipe)
-            // })
-            // .catch((err) => {
-            //     console.log(err)
-            //     res.status(400).json({
-            //         message: 'Error adding recipe to favourites'
-            //     })
-            // })
     })    
 
 router
