@@ -8,7 +8,7 @@ function Navbar() {
     const searchAllRecipes = (e) => {
         e.preventDefault();
         
-        history.push(`/recipes/${e.target[0].value}`)
+        history.push(`/recipes/&query=${e.target[0].value}`)
     }
 
     return (

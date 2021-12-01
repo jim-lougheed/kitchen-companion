@@ -54,6 +54,16 @@ app
         //     .then(({ data }) => res.send(data))
         //     .catch((err) => console.error(err))
     })
+    
+/*
+*GET 3 recipes related to ID
+*/
+app    
+    .get('/recipe/relatedTo/:id', (req, res) => {
+        axios
+            .get(`${process.env.API_URL}${req.params.id}/similar${process.env.API_KEY}&number=3`)
+            .then(({ data }) => res.send(data))
+    })
 
 /*
  *GET all recipes by category 
@@ -62,13 +72,13 @@ app
     .get('/recipes/:category', (req, res) => {
         console.log(req.params.category)
     axios
-        .get(`${process.env.API_URL}complexSearch${process.env.API_KEY}&query=${req.params.category}`)
+        .get(`${process.env.API_URL}complexSearch${process.env.API_KEY}${req.params.category}`)
         .then(({ data }) => res.send(data))
         .catch((err) => console.error(err))
 })
 
 /*
- *GET 6 recipes by ingredients on-hand
+ *GET 20 recipes by ingredients on-hand
  */
 app
     .get('/recipes/byIngredients/:ingredients', (req, res) => {

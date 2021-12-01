@@ -6,7 +6,7 @@ function SearchRecipes({ ingredients }) {
 
     const searchAllRecipes = (e) => {
         e.preventDefault();
-        history.push(`/recipes/${e.target[0].value}`)
+        history.push(`/recipes/&query=${e.target[0].value}`)
     }
 
     const searchByIngredientsOnHand = (e) => {
