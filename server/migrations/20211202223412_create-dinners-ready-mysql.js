@@ -1,9 +1,12 @@
-
 exports.up = function(knex) {
     return knex.schema.createTable('user', (table) => {
         table.increments('id'); //primary key
         table.string('first_name').notNullable();
         table.string('last_name').notNullable();
+        table.string('email').notNullable();
+        table.string('password').notNullable();
+        table.string('shoppingList')
+        table.string('dietaryRestriction')
     }).createTable('favourite-recipes', (table) => {
         table.string('id').notNullable(); 
         table.integer('user_id').unsigned().notNullable();

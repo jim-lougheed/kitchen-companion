@@ -1,5 +1,6 @@
 import { Link, useHistory } from 'react-router-dom';
 
+import { Menu, Avatar } from 'antd';
 import './Navbar.scss';
 
 function Navbar() {
@@ -11,9 +12,11 @@ function Navbar() {
         history.push(`/recipes/&query=${e.target[0].value}`)
     }
 
+    const name = 'Jim';
+
     return (
-        <nav className='navbar'>
-            <div className='div-container .div-container--left'>
+        <Menu className='navbar'>
+            <div className='div-container div-container--left'>
                 <Link to='/home'>
                     <h1>Dinner's Ready Logo</h1>
                 </Link>
@@ -27,7 +30,7 @@ function Navbar() {
                     <p>My Shopping List</p>
                 </Link>
             </div>
-            <div className='div-container .div-container--right'>
+            <div className='div-container div-container--right'>
                 <form onSubmit={searchAllRecipes}>
                     <label>Search recipes...
                         <input type='text' name='recipeSearch' placeholder='Enter a search word'/>
@@ -39,10 +42,10 @@ function Navbar() {
                     <p>Search</p>
                 </Link>
                 <Link to='#'>
-                    <p>Profile</p>
+                    <Avatar>{name[0]}</Avatar>
                 </Link>
             </div>
-        </nav>
+        </Menu>
     )
 }
 

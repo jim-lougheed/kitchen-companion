@@ -5,9 +5,16 @@ p {
 .navbar {
     border-bottom: 1px solid black;
     display: flex;
-    justify-content: space-between
 }
 
 .div-container {
     display: flex;
+
+    &--left {
+        width: 75%;
+    }
+
+    &--right {
+        width: 25%;
+    }
 }

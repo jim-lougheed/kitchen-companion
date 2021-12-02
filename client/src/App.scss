@@ -41,6 +41,12 @@
   display: flex;
 }
 
-.ant-layout-content {
-  width: 80%;
+.ant-layout-header {
+  padding: 0;
 }
+
+.ant-layout-content {
+  width: calc(100% - 200px);
+}
+
+@import '~antd/dist/antd.css';

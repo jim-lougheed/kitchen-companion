@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import IngredientsOnHand from './components/IngredientsOnHand';
 
 import Home from './pages/Home';
+import Login from './components/Login/Login';
 
 import Recipe from './pages/Recipe/Recipe';
 import RecipesList from './pages/RecipesList';
@@ -37,7 +38,8 @@ class App extends React.Component {
     olives: false,
     cabbage: false,
     lettuce: false,
-    shoppingList: ['celery', 'lettuce']
+    shoppingList: ['celery', 'lettuce'],
+    dietaryRestriction: null
   }
 
   toggleIngredientsOnHand = (e) => {
@@ -64,6 +66,7 @@ class App extends React.Component {
           <Layout>
             <Content>
               <Switch>
+                <Route path='/login' exact component={Login} />
                 <Route path='/home' exact component={Home} />
                 <Route path='/recipes/search' exact render={() => <SearchRecipes ingredients={this.state}/> }/>
                 <Route path='/recipes/byIngredients/:ingredients' component={RecipesListByIngredients} />
