@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 
 import RecipeTags from '../RecipeTags';
-import ListedRecipe from '../ListedRecipe';
+import ListedRecipeNoImage from '../ListedRecipeNoImage';
 
 import './ActiveRecipe.scss';
-import ListedRecipeNoImage from '../ListedRecipeNoImage';
 
 
 function ActiveRecipe({ params, addToShoppingList }) {
