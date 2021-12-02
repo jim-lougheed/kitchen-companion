@@ -1,7 +1,7 @@
-import './App.css';
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
+import { Layout } from 'antd';
 import Navbar from './components/Navbar';
 import IngredientsOnHand from './components/IngredientsOnHand';
 
@@ -16,6 +16,10 @@ import MyRecipesSearchResults from './pages/MyRecipesSearchResults';
 import DinnerSelector from './pages/DinnerSelector';
 import MyShoppingList from './pages/MyShoppingList';
 import RecipesListByIngredients from './pages/RecipesListByIngredients';
+
+import './App.scss';
+
+const { Header, Content, Sider, Footer } = Layout;
 
 class App extends React.Component {
 
@@ -53,20 +57,31 @@ class App extends React.Component {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
-        <IngredientsOnHand toggleIngredientsOnHand={this.toggleIngredientsOnHand} ingredients={this.state} />
-        <Switch>
-          <Route path='/home' exact component={Home} />
-          <Route path='/recipes/search' exact render={() => <SearchRecipes ingredients={this.state}/> }/>
-          <Route path='/recipes/byIngredients/:ingredients' component={RecipesListByIngredients} />
-          <Route path='/recipes/:search' component={RecipesList} />
-          <Route path='/recipe/:recipeId' render={() => <Recipe addToShoppingList={this.addToShoppingList} /> } />
-          <Route path='/myrecipes/all' exact component={MyRecipesList} />
-          <Route path='/myrecipes/search' exact component={SearchMyRecipes} />
-          <Route path='/myrecipes/:search' exact component={MyRecipesSearchResults} />
-          <Route path='/dinnerselector/:ingredients' render={(renderProps) => <DinnerSelector ingredients={this.state} {...renderProps}/>} />
-          <Route path='/myshoppinglist' render={() => <MyShoppingList shoppingList={this.state.shoppingList} addToShoppingList={this.addToShoppingList} /> } />
-        </Switch>
+        <Layout>
+          <Header>
+            <Navbar />
+          </Header>
+          <Layout>
+            <Content>
+              <Switch>
+                <Route path='/home' exact component={Home} />
+                <Route path='/recipes/search' exact render={() => <SearchRecipes ingredients={this.state}/> }/>
+                <Route path='/recipes/byIngredients/:ingredients' component={RecipesListByIngredients} />
+                <Route path='/recipes/:search' component={RecipesList} />
+                <Route path='/recipe/:recipeId' render={() => <Recipe addToShoppingList={this.addToShoppingList} /> } />
+                <Route path='/myrecipes/all' exact component={MyRecipesList} />
+                <Route path='/myrecipes/search' exact component={SearchMyRecipes} />
+                <Route path='/myrecipes/:search' exact component={MyRecipesSearchResults} />
+                <Route path='/dinnerselector/:ingredients' render={(renderProps) => <DinnerSelector ingredients={this.state} {...renderProps}/>} />
+                <Route path='/myshoppinglist' render={() => <MyShoppingList shoppingList={this.state.shoppingList} addToShoppingList={this.addToShoppingList} /> } />
+              </Switch>
+            </Content>
+            <Sider>
+              <IngredientsOnHand toggleIngredientsOnHand={this.toggleIngredientsOnHand} ingredients={this.state} />
+            </Sider>
+          </Layout>
+          <Footer>Footer</Footer>
+        </Layout>
       </BrowserRouter>
     </div>
   );
