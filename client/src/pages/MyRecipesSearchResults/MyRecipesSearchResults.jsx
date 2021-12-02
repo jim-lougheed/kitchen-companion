@@ -4,10 +4,9 @@ import axios from 'axios';
 import ListedRecipe from '../../components/ListedRecipe';
 
 function MyRecipesSearchResults({ match: { params }}) {
-    const keyword = (params.search.substring(0, (params.search.length-21)))
-    const vegetarian = (params.search.substring((params.search.length-8), (params.search.length-9)))
-    const vegan = (params.search.substring((params.search.length-1), (params.search.length)))
-    console.log(keyword, vegetarian, vegan)
+    const keyword = (params.search.substring(0, (params.search.length-6)))
+    const restriction = (params.search.substring((params.search.length-5), (params.search.length)))
+    console.log(keyword, restriction)
 
     const [myRecipes, setMyRecipes] = useState(null);
 
@@ -26,7 +25,27 @@ function MyRecipesSearchResults({ match: { params }}) {
             {myRecipes ?
             <ul className='recipe-list__container'>
                 {myRecipes.map((recipe) => {
-                    if (recipe.extendedIngredients.includes(keyword)){
+                    if (restriction === 'vegan') {
+                        if (recipe.extendedIngredients.includes(keyword) && recipe.vegan == 1){
+                            return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
+                    }    
+                    } else if (restriction === 'veget') {
+                        if (recipe.extendedIngredients.includes(keyword) && recipe.vegetarian == 1){
+                            console.log(recipe)
+                            return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
+                    }    
+                    } else if (restriction === 'daiFr') {
+                        if (recipe.extendedIngredients.includes(keyword) && recipe.dairyFree == 1){
+                            console.log(recipe)
+                            return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
+                    }    
+                    } else if (restriction === 'gluFr') {
+                        if (recipe.extendedIngredients.includes(keyword) && recipe.glutenFree == 1){
+                            console.log(recipe)
+                            return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
+                    }    
+                    } else if (recipe.extendedIngredients.includes(keyword)){
+                        console.log(recipe)
                     return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
                     }
                 })}

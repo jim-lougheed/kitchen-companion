@@ -1,37 +1,29 @@
 import { useHistory } from "react-router-dom";
-import { useState } from 'react';
 
 function SearchMyRecipes() {
     
-    const [searchParams, setSearchParams] = useState({
-        vegetarian: false,
-        vegan: false
-    });
-    
-    const toggleSearchParams = (e) => {
-        console.log(e.target.name);
-        setSearchParams(prevState => ({
-            ...prevState,
-            [e.target.name]: !prevState[e.target.name]
-        }))
-    }
 
     let history = useHistory(); 
     const searchAllRecipes = (e) => {
         e.preventDefault();
-        history.push(`/myrecipes/${e.target[2].value}&vegetarian=${searchParams.vegetarian}&vegan=${searchParams.vegan}`)
+        history.push(`/myrecipes/${e.target.myRecipesSearch.value}+${e.target.selection.value}`)
     }
 
     return (
         <form onSubmit={searchAllRecipes}>
-            <label>Vegetarian
-                <input name='vegetarian' type='checkbox' onChange={toggleSearchParams}></input>
-                <span className="checkmark"></span>
-            </label>
-            <label>Vegan
-                <input name='vegan' type='checkbox' onChange={toggleSearchParams}></input>
-                <span className="checkmark"></span>
-            </label>
+            <h3>Search Parameters</h3>
+                <input name='selection' value='veget' type='radio'></input>
+                <label htmlFor='vegetarian'>Vegetarian</label>
+            
+                <input name='selection' value='vegan' type='radio'></input>
+                <label htmlFor='vegan'>Vegan</label>
+            
+                <input name='selection' value='daiFr' type='radio'></input>
+                <label htmlFor='dairyFree'>Dairy-Free</label>
+                
+                <input name='selection' value='gluFr' type='radio'></input>
+                <label htmlFor='glutenFree'>Gluten-Free</label>
+            
             <label>Search by keyword...
                 <input type='text' name='myRecipesSearch' placeholder='Enter a search word'/>
             </label>
