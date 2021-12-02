@@ -6,7 +6,8 @@ import ListedRecipe from '../../components/ListedRecipe';
 function MyRecipesSearchResults({ match: { params }}) {
     const keyword = (params.search.substring(0, (params.search.length-6)))
     const restriction = (params.search.substring((params.search.length-5), (params.search.length)))
-    console.log(keyword, restriction)
+
+    let noHitCount = 0;
 
     const [myRecipes, setMyRecipes] = useState(null);
 
@@ -18,7 +19,7 @@ function MyRecipesSearchResults({ match: { params }}) {
             })
             .catch((err) => console.error(err))
     }, [params.search])
-    
+
     return (
         <>
             <h1>Search Results</h1>
@@ -26,28 +27,30 @@ function MyRecipesSearchResults({ match: { params }}) {
             <ul className='recipe-list__container'>
                 {myRecipes.map((recipe) => {
                     if (restriction === 'vegan') {
-                        if (recipe.extendedIngredients.includes(keyword) && recipe.vegan == 1){
+                        if ((recipe.extendedIngredients.toLowerCase().includes(keyword.toLowerCase()) || recipe.analyzedInstructions.toLowerCase().includes(keyword.toLowerCase()) || recipe.dishTypes.toLowerCase().includes(keyword.toLowerCase()) || recipe.cuisines.toLowerCase().includes(keyword.toLowerCase())) && recipe.vegan === 1) {
                             return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
                     }    
                     } else if (restriction === 'veget') {
-                        if (recipe.extendedIngredients.includes(keyword) && recipe.vegetarian == 1){
-                            console.log(recipe)
+                        if ((recipe.extendedIngredients.toLowerCase().includes(keyword.toLowerCase()) || recipe.analyzedInstructions.toLowerCase().includes(keyword.toLowerCase()) || recipe.dishTypes.toLowerCase().includes(keyword.toLowerCase()) || recipe.cuisines.toLowerCase().includes(keyword.toLowerCase())) && recipe.vegetarian === 1) {
                             return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
                     }    
                     } else if (restriction === 'daiFr') {
-                        if (recipe.extendedIngredients.includes(keyword) && recipe.dairyFree == 1){
-                            console.log(recipe)
+                        if ((recipe.extendedIngredients.toLowerCase().includes(keyword.toLowerCase()) || recipe.analyzedInstructions.toLowerCase().includes(keyword.toLowerCase()) || recipe.dishTypes.toLowerCase().includes(keyword.toLowerCase()) || recipe.cuisines.toLowerCase().includes(keyword.toLowerCase())) && recipe.dairyFree === 1) {
                             return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
                     }    
                     } else if (restriction === 'gluFr') {
-                        if (recipe.extendedIngredients.includes(keyword) && recipe.glutenFree == 1){
-                            console.log(recipe)
+                        if ((recipe.extendedIngredients.toLowerCase().includes(keyword.toLowerCase()) || recipe.analyzedInstructions.toLowerCase().includes(keyword.toLowerCase()) || recipe.dishTypes.toLowerCase().includes(keyword.toLowerCase()) || recipe.cuisines.toLowerCase().includes(keyword.toLowerCase())) && recipe.glutenFree === 1) {
                             return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
                     }    
-                    } else if (recipe.extendedIngredients.includes(keyword)){
-                        console.log(recipe)
-                    return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
+                    } else if (recipe.extendedIngredients.toLowerCase().includes(keyword.toLowerCase()) || recipe.analyzedInstructions.toLowerCase().includes(keyword.toLowerCase()) || recipe.dishTypes.toLowerCase().includes(keyword.toLowerCase()) || recipe.cuisines.toLowerCase().includes(keyword.toLowerCase())) {
+                        return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
+                    } else {
+                        noHitCount++
+                        if (noHitCount === 5) {
+                            return <h3>No Results Found</h3>
+                        }
                     }
+                    return null
                 })}
             </ul>
             : <p>Loading...</p>}

@@ -65,24 +65,24 @@ router
     })
 
 
-router
-    .route('/:search')
+// router
+//     .route('/name/:search')
 /*
 *GET single recipe from database
 */
-    .get((req, res) => {
-        knex
-        .select('*')
-        .where('extendedIngredients', 'like', `%${req.params.search}%`)
-        .from('favourite-recipes')
-        .then((data) => {
-            res.status(200).json(data)
-        })
-        .catch((err) => {
-            res.status(400).json({
-                message: 'No matches found'
-            })
-        })
-    })
+    // .get((req, res) => {
+    //     knex
+    //     .select('*')
+    //     .where('extendedIngredients', 'like', `%${req.params.search}%`)
+    //     .from('favourite-recipes')
+    //     .then((data) => {
+    //         res.status(200).json(data)
+    //     })
+    //     .catch((err) => {
+    //         res.status(400).json({
+    //             message: 'No matches found'
+    //         })
+    //     })
+    // })
 
     module.exports = router;

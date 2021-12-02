@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import Winwheel from "winwheel";
 import axios from "axios";
 import ListedRecipe from "../../components/ListedRecipe";
 
-function DinnerSelector({ ingredients, match: { params } }) {
+function DinnerSelector({ match: { params } }) {
 
   const [winningRecipe, setWinningRecipe] = useState(null);
-
-  const history = useHistory();
 
   useEffect(() => {
     axios
@@ -17,10 +14,9 @@ function DinnerSelector({ ingredients, match: { params } }) {
         fillWheel(data);
     })
     .catch((err) => console.error(err))
-  }, [params.recipes]);
+  }, [params.ingredients]);
 
   const fillWheel = (data) => {
-    console.log(data)
     window.winwheel = new Winwheel({
       canvasId: "myCanvas",
       numSegments: 6,

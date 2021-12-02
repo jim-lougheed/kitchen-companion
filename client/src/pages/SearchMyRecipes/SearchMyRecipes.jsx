@@ -6,12 +6,12 @@ function SearchMyRecipes() {
     let history = useHistory(); 
     const searchAllRecipes = (e) => {
         e.preventDefault();
-        history.push(`/myrecipes/${e.target.myRecipesSearch.value}+${e.target.selection.value}`)
+        history.push(`/myrecipes/${e.target.myRecipesSearch.value}+${e.target.selection.value ? + e.target.selection.value : 'empty'}`)
     }
 
     return (
         <form onSubmit={searchAllRecipes}>
-            <h3>Search Parameters</h3>
+            <h3>Search by dietary restriction</h3>
                 <input name='selection' value='veget' type='radio'></input>
                 <label htmlFor='vegetarian'>Vegetarian</label>
             
@@ -23,6 +23,8 @@ function SearchMyRecipes() {
                 
                 <input name='selection' value='gluFr' type='radio'></input>
                 <label htmlFor='glutenFree'>Gluten-Free</label>
+            
+            
             
             <label>Search by keyword...
                 <input type='text' name='myRecipesSearch' placeholder='Enter a search word'/>
