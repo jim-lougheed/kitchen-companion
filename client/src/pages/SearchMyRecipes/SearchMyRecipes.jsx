@@ -1,5 +1,4 @@
 import { useHistory } from "react-router-dom";
-import { useState } from 'react';
 
 function SearchMyRecipes() {
     
@@ -21,6 +20,7 @@ function SearchMyRecipes() {
             
                 <input name='selection' value='daiFr' type='radio'></input>
                 <label htmlFor='dairyFree'>Dairy-Free</label>
+                
                 <input name='selection' value='gluFr' type='radio'></input>
                 <label htmlFor='glutenFree'>Gluten-Free</label>
             

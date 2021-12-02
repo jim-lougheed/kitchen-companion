@@ -39,14 +39,12 @@ function MyRecipesSearchResults({ match: { params }}) {
                             console.log(recipe)
                             return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
                     }    
-                    }
-                    else if (restriction === 'gluFr') {
+                    } else if (restriction === 'gluFr') {
                         if (recipe.extendedIngredients.includes(keyword) && recipe.glutenFree == 1){
                             console.log(recipe)
                             return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
                     }    
-                    }
-                    else if (recipe.extendedIngredients.includes(keyword)){
+                    } else if (recipe.extendedIngredients.includes(keyword)){
                         console.log(recipe)
                     return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
                     }
