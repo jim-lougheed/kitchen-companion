@@ -108,17 +108,19 @@ function ActiveRecipe({ params, addToShoppingList }) {
                 </TabPane>
               </Tabs>
             </Card>
-            <Button onClick={handleAddToFavourites} shape="round">
+            <div className='recipe__add-related-container'>
+            <Button className='recipe__add-button' onClick={handleAddToFavourites} shape="round">
               {<PlusOutlined />} Add to MyRecipes
             </Button>
-          </div>
-          <RecipeTags recipe={recipe} />
-          <ul className="related-recipes__container">
+            <ul className="related-recipes__container">
             {relatedRecipes &&
               relatedRecipes.map((recipe) => {
                 return <ListedRecipeNoImage key={recipe.id} recipe={recipe} />;
               })}
-          </ul>
+            </ul>
+            </div>
+          </div>
+          <RecipeTags recipe={recipe} />
         </div>
       ) : (
         <p>Loading...</p>

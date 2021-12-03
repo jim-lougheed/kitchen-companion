@@ -2,6 +2,8 @@
 
     &__container {
         display: flex;
+        justify-content: center;
+        margin-top: 3rem;
     }
 
     &__img-ingredients-container {
@@ -22,8 +24,21 @@
         padding-bottom: 1rem;
     }
     
-
     &__step {
         text-align: left;
+    }
+
+    &__add-related-container {
+        margin-left: 3rem;
+        width: 20%;
+    }
+
+    &__add-button {
+        margin-left: 3rem;
+    }
+
+    &__tag-container {
+        display: flex;
+        text-align: center;
     }
 }

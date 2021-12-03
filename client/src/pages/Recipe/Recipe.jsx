@@ -10,7 +10,6 @@ function Recipe({addToShoppingList}) {
     
         return (
             <>
-                <h1>Recipe</h1>
                 <ActiveRecipe params={params} addToShoppingList={addToShoppingList}/>
             </>
         )
