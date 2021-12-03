@@ -67,7 +67,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
                     <Card className='recipe__name-directions-container'>
                         <h2>{recipe.title}</h2>
                         {recipe.extendedIngredients.map((ingredient) => {
-                            return <form onSubmit={(e) => addToShoppingList(e, e.target.children[0].attributes.name.nodeValue)} className='recipe__ingredient'>
+                            return <form key={ingredient.id} onSubmit={(e) => addToShoppingList(e, e.target.children[0].attributes.name.nodeValue)} className='recipe__ingredient'>
                             <p key={ingredient.id} name={ingredient.name}>{ingredient.originalString}</p>
                             <button type='submit'>+</button>
                             </form>

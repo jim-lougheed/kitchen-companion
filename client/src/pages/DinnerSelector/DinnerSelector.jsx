@@ -21,38 +21,38 @@ function DinnerSelector({ match: { params } }) {
       canvasId: "myCanvas",
       numSegments: 6,
       textLineWidth: 1,
-      textFontSize: 18,
+      textFontSize: 14,
       responsive: true,
       segments: [
         {
           id: data[2].id,
           fillStyle: "#FBF46D",
-          text: data[2].title.substring(0, 20) + "...",
+          text: `${data[2].title.substring(0, 28)}${data[2].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[6].id,
           fillStyle: "#77E4D4",
-          text: data[6].title.substring(0, 20) + "...",
+          text: `${data[6].title.substring(0, 28)}${data[6].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[11].id,
           fillStyle: "#B4FE98",
-          text: data[11].title.substring(0, 20) + "...",
+          text: `${data[11].title.substring(0, 28)}${data[11].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[13].id,
           fillStyle: "#FBF46D",
-          text: data[13].title.substring(0, 20) + "...",
+          text: `${data[13].title.substring(0, 28)}${data[13].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[16].id,
           fillStyle: "#77E4D4",
-          text: data[16].title.substring(0, 20) + "...",
+          text: `${data[16].title.substring(0, 28)}${data[16].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[19].id,
           fillStyle: "#B4FE98",
-          text: data[19].title.substring(0, 20) + "...",
+          text: `${data[19].title.substring(0, 28)}${data[19].title.length > 28 ? '...' : ''}`,
         },
       ],
       lineWidth: 3,
@@ -79,7 +79,6 @@ function DinnerSelector({ match: { params } }) {
     axios
       .get(`/recipe/${winningSegment.id}`)
       .then(({ data }) => {
-        console.log(data)
         setWinningRecipe(data)
       })
       .catch((err) => console.error(err))

@@ -17,7 +17,11 @@ function SearchRecipes({ ingredients }) {
             listOfIngredients += `${key},+`; 
             }
         }
-        history.push(`/recipes/byIngredients/${listOfIngredients}`)
+        if (listOfIngredients) {
+            history.push(`/recipes/byIngredients/${listOfIngredients}`)
+        } else {
+            alert('Select some items you have on hand')
+        }
     }
 
     const dinnerSelectorByIngredientsOnHand = (e) => {
@@ -28,7 +32,11 @@ function SearchRecipes({ ingredients }) {
             listOfIngredients += `${key},+`; 
             }
         }
-        history.push(`/dinnerselector/${listOfIngredients}`)
+        if (listOfIngredients) {
+            history.push(`/dinnerselector/${listOfIngredients}`)
+        } else {
+            alert('Select some items you have on hand')
+        }
     }
 
     const advancedSearch = (e) => {
@@ -64,7 +72,7 @@ function SearchRecipes({ ingredients }) {
                     <button type='submit'>Search</button>
                 </form>
                 <form onSubmit={advancedSearch}>
-                    <label for='diets'>Diets</label>
+                    <label htmlFor='diets'>Diets</label>
                         <select name='diets' id='diets'>
                             <option value=''></option>
                             <option value='gluten-free'>Gluten-free</option>
@@ -78,7 +86,7 @@ function SearchRecipes({ ingredients }) {
                             <option value='vegan'>Vegan</option>
                             <option value='vegetarian'>Vegetarian</option>
                         </select>
-                    <label for='cuisines'>Cuisines</label>
+                    <label htmlFor='cuisines'>Cuisines</label>
                         <select name='cuisines' id='cuisines'>
                             <option value=''></option>
                             <option value='african'>African</option>
@@ -107,7 +115,7 @@ function SearchRecipes({ ingredients }) {
                             <option value='thai'>Thai</option>
                             <option value='vietnamese'>Vietnamese</option>
                         </select>
-                        <label for='intolerances'>Intolerances</label>
+                        <label htmlFor='intolerances'>Intolerances</label>
                         <select name='intolerances' id='intolerances'>
                             <option value=''></option>
                             <option value='dairy'>Dairy</option>
@@ -123,7 +131,7 @@ function SearchRecipes({ ingredients }) {
                             <option value='tree-nut'>Tree Nuts</option>
                             <option value='wheat'>Wheat</option>
                         </select>
-                        <label for='type'>Meal Type</label>
+                        <label htmlFor='type'>Meal Type</label>
                         <select name='type' id='type'>
                             <option value=''></option>
                             <option value='appetizer'>Appetizer</option>
@@ -140,14 +148,13 @@ function SearchRecipes({ ingredients }) {
                             <option value='snack'>Snack</option>
                             <option value='soup'>Soup</option>
                         </select>
-                        <label for='excludeIngredients'>Exclude Ingredients</label>
+                        <label htmlFor='excludeIngredients'>Exclude Ingredients</label>
                             <input type='text' name='excludeIngredients' id='excludeIngredients' placeholder='Enter any ingredients to exclude (separated by commas, ",")'></input>
-                        <label for='includeIngredients'>Include Ingredients from "What's in my fridge"</label>
+                        <label htmlFor='includeIngredients'>Include Ingredients from "What's in my fridge"</label>
                             <input type='checkbox' name='includeIngredients' id='includeIngredients'></input>
-                        <label for='maxReadyTime'>Maximum Cook Time</label>
+                        <label htmlFor='maxReadyTime'>Maximum Cook Time</label>
                             <input type='number' name='maxReadyTime' id='maxReadyTime' placeholder='Time in minutes'></input>
-                            <button type='submit'>Search</button>
-
+                        <button type='submit'>Search</button>
                 </form>
                 </>
     )

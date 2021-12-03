@@ -38,9 +38,7 @@ class App extends React.Component {
     olives: false,
     cabbage: false,
     lettuce: false,
-    shoppingList: ['celery', 'lettuce'],
-    dietaryRestriction: null,
-    loggedIn: false
+    shoppingList: ['celery', 'lettuce']
   }
 
   toggleIngredientsOnHand = (e) => {
@@ -57,7 +55,6 @@ class App extends React.Component {
   }
 
   render() {
-    const { loggedIn, shoppingList } = this.state;
   return (
     <div className="App">
       <BrowserRouter>
@@ -78,14 +75,12 @@ class App extends React.Component {
                 <Route path='/myrecipes/search' exact component={SearchMyRecipes} />
                 <Route path='/myrecipes/:search' exact component={MyRecipesSearchResults} />
                 <Route path='/dinnerselector/:ingredients' render={(renderProps) => <DinnerSelector ingredients={this.state} {...renderProps}/>} />
-                <Route path='/myshoppinglist' render={() => <MyShoppingList shoppingList={shoppingList} addToShoppingList={this.addToShoppingList} /> } />
+                <Route path='/myshoppinglist' render={() => <MyShoppingList shoppingList={this.stateshoppingList} addToShoppingList={this.addToShoppingList} /> } />
               </Switch>
             </Content>
-            {loggedIn &&
             <Sider>
               <IngredientsOnHand toggleIngredientsOnHand={this.toggleIngredientsOnHand} ingredients={this.state} />
             </Sider>
-            }
           </Layout>
           <Footer>Footer</Footer>
         </Layout>
