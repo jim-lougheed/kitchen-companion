@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Card, Timeline, Button, Input } from 'antd';
+import { Card, Timeline, Button, Input, Popover } from 'antd';
 import { PlusOutlined, CloseOutlined } from "@ant-design/icons";
 import './MyShoppingList.scss';
 
@@ -16,6 +16,8 @@ function MyShoppingList({ shoppingList, addToShoppingList, deleteFromShoppingLis
         e.preventDefault();
         if (e.target.shoppingItem.value) {
             addToShoppingList(e, e.target.shoppingItem.value)
+        } else {
+return
         }
         
     }
@@ -40,6 +42,7 @@ function MyShoppingList({ shoppingList, addToShoppingList, deleteFromShoppingLis
             })}     
                    
             <form onSubmit={(e) => handleSubmit(e)} className='shopping-list__add-form'>
+            <Popover content='Please enter an item before clicking "+"'></Popover>
             <div className='shopping-list__add-input-container'>
             <Input className='shopping-list__add-input' type='text' id='shoppingItem' name='shoppingItem' placeholder='Enter an item to your shopping list' onChange={handleChange}></Input>
             </div>
