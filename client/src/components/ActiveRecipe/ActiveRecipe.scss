@@ -15,4 +15,8 @@
         flex-direction: column;
         width: 33%;
     }
+
+    &__ingredient {
+        display: flex;
+    }
 }

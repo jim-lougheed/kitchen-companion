@@ -4,6 +4,7 @@ import axios from "axios";
 import RecipeTags from '../RecipeTags';
 import ListedRecipeNoImage from '../ListedRecipeNoImage';
 
+import { Card } from 'antd';
 import './ActiveRecipe.scss';
 
 
@@ -59,14 +60,14 @@ function ActiveRecipe({ params, addToShoppingList }) {
                 {recipe ?
                 <div>
                 <div className='recipe__container'>
-                    <div className='recipe__img-ingredients-container'>
+                    <Card className='recipe__img-ingredients-container'>
                         <img src={recipe.image} alt={recipe.image} />
                         <p>{recipe.summary}</p>
-                    </div>
-                    <div className='recipe__name-directions-container'>
+                    </Card>
+                    <Card className='recipe__name-directions-container'>
                         <h2>{recipe.title}</h2>
                         {recipe.extendedIngredients.map((ingredient) => {
-                            return <form onSubmit={(e) => addToShoppingList(e, e.target.children[0].attributes.name.nodeValue)}>
+                            return <form onSubmit={(e) => addToShoppingList(e, e.target.children[0].attributes.name.nodeValue)} className='recipe__ingredient'>
                             <p key={ingredient.id} name={ingredient.name}>{ingredient.originalString}</p>
                             <button type='submit'>+</button>
                             </form>
@@ -75,9 +76,9 @@ function ActiveRecipe({ params, addToShoppingList }) {
                             recipe.analyzedInstructions[0].steps.map((step) => {
                                 return <p key={step.number}>{step.step}</p>
                         })}
-                    </div>
-                    </div>
+                    </Card>
                     <button onClick={handleAddToFavourites}>Add to MyRecipes</button>
+                    </div>
                     <RecipeTags recipe={recipe}/>
                     <ul className='related-recipes__container'>
                     {relatedRecipes &&
