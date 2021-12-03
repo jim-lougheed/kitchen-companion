@@ -28,7 +28,7 @@ function IngredientsOnHand({ toggleIngredientsOnHand, ingredients }) {
                         </Menu.Item>
                     </SubMenu>
                     <SubMenu title='Veggies' key='sub2' icon={<img src={Vegetables} className='submenuIcon' alt='vegetable icon' />}>
-                        <Menu.Item key='1'>
+                        <Menu.Item>
                             <Checkbox name='spinach' onChange={toggleIngredientsOnHand} checked={ingredients.spinach}>Spinach</Checkbox>
                         </Menu.Item>
                         <Menu.Item>
@@ -60,24 +60,24 @@ function IngredientsOnHand({ toggleIngredientsOnHand, ingredients }) {
                         </Menu.Item>
                     </SubMenu>
                     <SubMenu title='Fruits' key='sub3' icon={<img src={Fruits} className='submenuIcon' alt='fruits icon' />}>
-                        <Menu.Item key='1'>
+                        <Menu.Item>
                             <Checkbox name='chicken' onChange={toggleIngredientsOnHand} checked={ingredients.chicken}>Chicken</Checkbox>
                         </Menu.Item>
-                        <Menu.Item key='2'>
+                        <Menu.Item>
                             <Checkbox name='beef' onChange={toggleIngredientsOnHand} checked={ingredients.beef}>Beef</Checkbox>
                         </Menu.Item>
-                        <Menu.Item key='3'>
+                        <Menu.Item>
                             <Checkbox name='pork' onChange={toggleIngredientsOnHand} checked={ingredients.pork}>Pork</Checkbox>
                         </Menu.Item>
                     </SubMenu>
                     <SubMenu title='Dairy' key='sub4' icon={<img src={Dairy} className='submenuIcon' alt='dairy icon' />}>
-                        <Menu.Item key='1'>
+                        <Menu.Item>
                             <Checkbox name='chicken' onChange={toggleIngredientsOnHand} checked={ingredients.chicken}>Chicken</Checkbox>
                         </Menu.Item>
-                        <Menu.Item key='2'>
+                        <Menu.Item>
                             <Checkbox name='beef' onChange={toggleIngredientsOnHand} checked={ingredients.beef}>Beef</Checkbox>
                         </Menu.Item>
-                        <Menu.Item key='3'>
+                        <Menu.Item>
                             <Checkbox name='pork' onChange={toggleIngredientsOnHand} checked={ingredients.pork}>Pork</Checkbox>
                         </Menu.Item>
                     </SubMenu>

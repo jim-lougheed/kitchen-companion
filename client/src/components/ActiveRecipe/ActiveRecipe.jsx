@@ -4,7 +4,7 @@ import axios from "axios";
 import RecipeTags from "../RecipeTags";
 import ListedRecipeNoImage from "../ListedRecipeNoImage";
 
-import { Card, Button, Timeline, Tabs } from "antd";
+import { Card, Button, Timeline, Tabs, Popover } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import "./ActiveRecipe.scss";
 
@@ -28,12 +28,13 @@ function ActiveRecipe({ params, addToShoppingList }) {
   }, [params.recipeId]);
 
   const handleAddToFavourites = () => {
+      
     const recipeBody = {
       id: recipe.id,
       user_id: 1,
       summary: recipe.summary.substr(0, 1200),
       title: recipe.title,
-      image: recipe.image,
+      image: recipe.image ? recipe.image : 'http://via.placeholder.com/556x370.png?text=No+Image+Available',
       analyzedInstructions: JSON.stringify(recipe.analyzedInstructions),
       cuisines: JSON.stringify(recipe.cuisines),
       dairyFree: recipe.dairyFree,
@@ -53,15 +54,16 @@ function ActiveRecipe({ params, addToShoppingList }) {
   };
 
   const { TabPane } = Tabs;
-
+  
   return (
     <>
       {recipe ? (
+          
         <div>
           <div className="recipe__container">
             <Card className="recipe__img-ingredients-container">
-              <img src={recipe.image} alt={recipe.image} />
-              <p>{recipe.summary}</p>
+              <img src={recipe.image ? recipe.image : 'http://via.placeholder.com/556x370.png?text=No+Image+Available'} alt={recipe.title} />
+              <div dangerouslySetInnerHTML={{__html: recipe.summary}}/>
             </Card>
             <Card className="recipe__name-directions-container">
               <h2>{recipe.title}</h2>
@@ -82,9 +84,11 @@ function ActiveRecipe({ params, addToShoppingList }) {
                           <Timeline.Item className='recipe__ingredient' name={ingredient.name}>
                             {ingredient.originalString}
                           </Timeline.Item>
+                          <Popover content={`Add ${ingredient.name.toUpperCase()} to Shopping List`} trigger='hover'>
                           <Button htmlType="submit" shape="circle" size='small'>
                             {<PlusOutlined />}
                           </Button>
+                          </Popover>
                         </form>
                       </Timeline>
                     );

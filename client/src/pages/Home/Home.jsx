@@ -24,7 +24,7 @@ function Home() {
             user_id: 1,
             summary: featuredRecipe.summary.substr(0, 1200),
             title: featuredRecipe.title,
-            image: featuredRecipe.image,
+            image: featuredRecipe.image ? featuredRecipe.image : 'http://via.placeholder.com/556x370.png?text=No+Image+Available',
             analyzedInstructions: JSON.stringify(featuredRecipe.analyzedInstructions),
             cuisines: JSON.stringify(featuredRecipe.cuisines),
             dairyFree: featuredRecipe.dairyFree,
@@ -48,7 +48,7 @@ function Home() {
                 {featuredRecipe ?
                 <div>
                     <Link to={`/recipe/${featuredRecipe.id}`}><h1>{featuredRecipe.title}</h1></Link>
-                    <img src={featuredRecipe.image} alt={featuredRecipe.image} />
+                    <img src={featuredRecipe.image ? featuredRecipe.image : 'http://via.placeholder.com/556x370.png?text=No+Image+Available'} alt={featuredRecipe.title} />
                 </div>    
                 : <p>Loading...</p>
                 }                
