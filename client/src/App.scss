@@ -49,4 +49,27 @@
   width: calc(100% - 200px);
 }
 
+.ant-timeline-item-last > .ant-timeline-item-content{ 
+  min-height: 0;
+  padding-bottom: 2rem;
+}
+.ant-timeline-item-tail {
+  
+    display: none;
+}
+
+.ant-timeline-item {
+  padding-bottom: 0;
+}
+
+.ant-tabs-nav-list {
+  justify-content: space-around;
+  width: 100%;
+}
+
+.ant-btn-circle {
+  margin-top: -10px;
+  margin-left: 1rem;
+}
+
 @import '~antd/dist/antd.css';

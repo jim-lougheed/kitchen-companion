@@ -12,6 +12,7 @@ function Home() {
         axios
             .get(`/random`)
             .then(({ data: { recipes }}) => {
+                console.log(recipes[0])
                 setFeaturedRecipe(recipes[0])
             })
             .catch((err) => console.error(err))

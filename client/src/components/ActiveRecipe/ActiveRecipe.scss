@@ -16,7 +16,14 @@
         width: 33%;
     }
 
-    &__ingredient {
+    &__ingredient-container {
         display: flex;
+        align-items: center;
+        padding-bottom: 1rem;
+    }
+    
+
+    &__step {
+        text-align: left;
     }
 }
