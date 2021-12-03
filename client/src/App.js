@@ -54,6 +54,16 @@ class App extends React.Component {
     })
   }
 
+  deleteFromShoppingList = (e, item) => {
+    e.preventDefault();
+    const newList = this.state.shoppingList.filter((listItem) => {
+      return listItem !== item
+    })
+    this.setState({
+      shoppingList: newList
+    })
+  }
+
   render() {
   return (
     <div className="App">
@@ -75,7 +85,7 @@ class App extends React.Component {
                 <Route path='/myrecipes/search' exact component={SearchMyRecipes} />
                 <Route path='/myrecipes/:search' exact component={MyRecipesSearchResults} />
                 <Route path='/dinnerselector/:ingredients' render={(renderProps) => <DinnerSelector ingredients={this.state} {...renderProps}/>} />
-                <Route path='/myshoppinglist' render={() => <MyShoppingList shoppingList={this.state.shoppingList} addToShoppingList={this.addToShoppingList} /> } />
+                <Route path='/myshoppinglist' render={() => <MyShoppingList shoppingList={this.state.shoppingList} addToShoppingList={this.addToShoppingList} deleteFromShoppingList={this.deleteFromShoppingList} /> } />
               </Switch>
             </Content>
             <Sider>

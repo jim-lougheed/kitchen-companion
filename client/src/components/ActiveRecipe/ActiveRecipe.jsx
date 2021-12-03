@@ -85,7 +85,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
                             {ingredient.originalString}
                           </Timeline.Item>
                           <Popover content={`Add ${ingredient.name.toUpperCase()} to Shopping List`} trigger='hover'>
-                          <Button htmlType="submit" shape="circle" size='small'>
+                          <Button htmlType="submit" shape="circle" size='small' className='recipe__ingredient-add-button'>
                             {<PlusOutlined />}
                           </Button>
                           </Popover>
