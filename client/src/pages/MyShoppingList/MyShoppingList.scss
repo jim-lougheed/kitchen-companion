@@ -19,4 +19,11 @@
     &__add-input-container {
         width: 75%;
     }
+
+    &__add-input {
+        &--empty {
+            border: none;
+            outline: 1px solid red;
+        }
+    }
 }
