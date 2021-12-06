@@ -1,12 +1,55 @@
-.recipe-container {
-    display: flex;
-    flex-wrap: wrap;
+.home-page {
+
+    &__container {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__home {
+        margin-top: 5rem;
+        width: 50%;
+    }
+
+    &__header {
+        font-size: 3rem;
+        text-align: center;
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    &__description {
+        font-size: 1.5rem;
+        margin: 0 auto;
+        max-width: 75%;
+    }
 }
 
-.recipe {
-    width: 30%;
+.featured-recipe {
+    
+    &__container {
+        margin: 5rem 3rem;
+        position: relative;
+        width: 30%;
+    }
+
+    &__header {
+        font-size: 2rem;
+        text-align: center;
+    }
 }
 
-.ingredient-image {
-    width: 30px;
+.other-recipes {
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        list-style: none;
+    }
+}
+
+.ant-btn.featured-recipe__add-button {
+        bottom: 1rem;
+        position: absolute;
+        right: 1rem;
 }

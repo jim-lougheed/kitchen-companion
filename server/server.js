@@ -23,12 +23,12 @@ app.use(express.static('public'));
 app.use('/myrecipes', myrecipesRoutes);
 
 /*
- *GET a RANDOM recipe based on 10 search items
+ *GET 6 RANDOM recipes for Home page
  */
 app
     .get('/random', (req, res) => {
         axios
-            .get(`${process.env.API_URL}random${process.env.API_KEY}`)
+            .get(`${process.env.API_URL}random${process.env.API_KEY}&number=6`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
 
@@ -66,13 +66,13 @@ app
     })
 
 /*
- *GET all recipes by category 
+ *GET 20 recipes by keyword 
  */
 app
-    .get('/recipes/:category', (req, res) => {
-        console.log(req.params.category)
+    .get('/recipes/:keyword', (req, res) => {
+        console.log(`${process.env.API_URL}complexSearch${process.env.API_KEY}${req.params.keyword}&number=30`)
     axios
-        .get(`${process.env.API_URL}complexSearch${process.env.API_KEY}${req.params.category}`)
+        .get(`${process.env.API_URL}complexSearch${process.env.API_KEY}${req.params.keyword}&number=30`)
         .then(({ data }) => res.send(data))
         .catch((err) => console.error(err))
 })

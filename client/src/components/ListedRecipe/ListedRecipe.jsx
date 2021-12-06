@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
 
+import { Card } from 'antd';
 import './ListedRecipe.scss';
 
-function ListedRecipe({ componentClassName, recipe: { id, title, image }}) {
+const { Meta } = Card;
+
+function ListedRecipe({ recipe: { id, title, image }}) {
     return (
-        <li>
-            <Link className={`${componentClassName}__item`} to={`/recipe/${id}`}>
-            <img className={`${componentClassName}__item-image`} src={image} alt={title} />
-            <h1 className={`${componentClassName}__item-name`}>{title}</h1>
+        <li className='recipe-list__item'>
+            <Link to={`/recipe/${id}`}>
+                <Card hoverable cover={<img alt={title} src={image ? image : 'http://via.placeholder.com/300x300.png?text=No+Image+Available'} />} className='recipe-list__item-image' loading={title ? false : true}>
+                    <Meta title={title} className='recipe-list__item-name'/>
+                </Card>
             </Link>
         </li>
     )

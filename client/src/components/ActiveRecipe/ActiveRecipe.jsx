@@ -4,6 +4,8 @@ import axios from "axios";
 import RecipeTags from "../RecipeTags";
 import ListedRecipeNoImage from "../ListedRecipeNoImage";
 
+import { calculateTime, removeLastSentence } from "../../utils/helpers";
+
 import { Card, Button, Timeline, Tabs, Popover } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import "./ActiveRecipe.scss";
@@ -21,10 +23,18 @@ function ActiveRecipe({ params, addToShoppingList }) {
       })
       .catch((err) => console.error(err));
 
-    axios.get(`/recipe/relatedTo/${id}`).then(({ data }) => {
-      console.log(data);
-      setRelatedRecipes(data);
-    });
+    axios
+      .get(`/recipe/relatedTo/${id}`)
+      .then(({ data }) => {
+        setRelatedRecipes(data);
+      })
+      .then((data) => {
+        data.forEach((recipe) => {
+          axios
+            .get(`/recipe/${recipe.id}`)
+        })
+      })
+      .catch((err) => console.error(err));
   }, [params.recipeId]);
 
   const handleAddToFavourites = () => {
@@ -61,9 +71,13 @@ function ActiveRecipe({ params, addToShoppingList }) {
           
         <div>
           <div className="recipe__container">
-            <Card className="recipe__img-ingredients-container">
+            <Card className="recipe__img-ingredients-container" loading={recipe ? false : true}>
               <img src={recipe.image ? recipe.image : 'http://via.placeholder.com/556x370.png?text=No+Image+Available'} alt={recipe.title} />
-              <div dangerouslySetInnerHTML={{__html: recipe.summary}}/>
+              <div dangerouslySetInnerHTML={{__html: removeLastSentence(recipe.summary)}}/>
+              <div className='recipe__servings-time-container'>
+                <p className='recipe__servings'>Servings: {recipe.servings}</p>
+                <p className='recipe__time'>Ready in {calculateTime(recipe.readyInMinutes)}</p>
+              </div>
             </Card>
             <Card className="recipe__name-directions-container">
               <h2>{recipe.title}</h2>
@@ -95,7 +109,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
                   })}
                 </TabPane>
                 <TabPane tab="Directions" key="2">
-                  {recipe.analyzedInstructions &&
+                  {recipe.analyzedInstructions[0] &&
                     recipe.analyzedInstructions[0].steps.map((step) => {
                       return (
                         <Timeline key={step.number}>
@@ -112,6 +126,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
             <Button className='recipe__add-button' onClick={handleAddToFavourites} shape="round">
               {<PlusOutlined />} Add to MyRecipes
             </Button>
+            <h2 className='related-recipes__header'>Similar Recipes</h2>
             <ul className="related-recipes__container">
             {relatedRecipes &&
               relatedRecipes.map((recipe) => {

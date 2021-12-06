@@ -12,6 +12,16 @@
         width: 33%;
     }
 
+    &__servings-time-container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 1rem;
+    }
+
+    &__servings, &__time {
+        padding: 0;
+    }
+
     &__name-directions-container {
         display: flex;
         flex-direction: column;
@@ -44,5 +54,15 @@
     &__tag-container {
         display: flex;
         text-align: center;
+    }
+}
+
+.related-recipes {
+    &__header {
+        margin: 2rem 0;
+    }
+
+    &__container {
+        padding: 0
     }
 }
