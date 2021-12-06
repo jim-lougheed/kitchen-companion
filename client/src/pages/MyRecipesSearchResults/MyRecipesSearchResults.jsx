@@ -44,12 +44,7 @@ function MyRecipesSearchResults({ match: { params }}) {
                     }    
                     } else if (recipe.extendedIngredients.toLowerCase().includes(keyword.toLowerCase()) || recipe.analyzedInstructions.toLowerCase().includes(keyword.toLowerCase()) || recipe.dishTypes.toLowerCase().includes(keyword.toLowerCase()) || recipe.cuisines.toLowerCase().includes(keyword.toLowerCase())) {
                         return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
-                    } else {
-                        noHitCount++
-                        if (noHitCount === 5) {
-                            return <h3>No Results Found</h3>
-                        }
-                    }
+                    } 
                     return null
                 })}
             </ul>

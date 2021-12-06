@@ -5,9 +5,10 @@ p {
 .navbar {
     border-bottom: 1px solid black;
     display: flex;
+    height: 65px;
 }
 
-.div-container {
+.nav-container {
     display: flex;
 
     &--left {
@@ -15,6 +16,29 @@ p {
     }
 
     &--right {
+        justify-content: space-around;
         width: 25%;
     }
+
+    &__form {
+        display: flex;
+        align-items: center;
+    }
+
+    &__quick-search {
+        height: 64px;
+        margin: 0;
+        padding: 0;
+        width: 85px;
+    }
+}
+
+.ant-input.nav-container__input {
+    height: 2rem;
+    margin-right: 1rem;
+    width: 170px;
+}
+
+.ant-btn.nav-container__button {
+    height: 45px;
 }

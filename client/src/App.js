@@ -17,6 +17,7 @@ import MyRecipesSearchResults from './pages/MyRecipesSearchResults';
 import DinnerSelector from './pages/DinnerSelector';
 import MyShoppingList from './pages/MyShoppingList';
 import RecipesListByIngredients from './pages/RecipesListByIngredients';
+import PageFooter from './components/PageFooter';
 
 import './App.scss';
 
@@ -76,7 +77,7 @@ class App extends React.Component {
             <Content>
               <Switch>
                 <Route path='/login' exact component={Login} />
-                <Route path='/home' exact component={Home} />
+                <Route path='/' exact component={Home} />
                 <Route path='/recipes/search' exact render={() => <SearchRecipes ingredients={this.state}/> }/>
                 <Route path='/recipes/byIngredients/:ingredients' component={RecipesListByIngredients} />
                 <Route path='/recipes/:search' component={RecipesList} />
@@ -92,7 +93,9 @@ class App extends React.Component {
               <IngredientsOnHand toggleIngredientsOnHand={this.toggleIngredientsOnHand} ingredients={this.state} />
             </Sider>
           </Layout>
-          <Footer>Footer</Footer>
+          <Footer>
+            <PageFooter />
+          </Footer>
         </Layout>
       </BrowserRouter>
     </div>

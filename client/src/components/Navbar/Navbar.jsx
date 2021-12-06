@@ -1,6 +1,7 @@
 import { Link, useHistory } from 'react-router-dom';
 
-import { Menu, Avatar } from 'antd';
+import { Menu, Avatar, Input, Button } from 'antd';
+import { SearchOutlined } from "@ant-design/icons";
 import './Navbar.scss';
 
 function Navbar() {
@@ -16,12 +17,9 @@ function Navbar() {
 
     return (
         <Menu className='navbar'>
-            <div className='div-container div-container--left'>
-                <Link to='/home'>
-                    <h1>Dinner's Ready Logo</h1>
-                </Link>
-                <Link to='/home'>
-                    <p>Featured</p>
+            <div className='nav-container nav-container--left'>
+                <Link to='/'>
+                    <h1>KitchenCompanion Logo</h1>
                 </Link>
                 <Link to='/myrecipes/all'>
                     <p>MyRecipes</p>
@@ -29,19 +27,19 @@ function Navbar() {
                 <Link to='/myshoppinglist'>
                     <p>My Shopping List</p>
                 </Link>
+                <Link to='/recipes/search'>
+                    <p>Search All Recipes</p>
+                </Link>
             </div>
-            <div className='div-container div-container--right'>
-                <form onSubmit={searchAllRecipes}>
-                    <label>Search recipes...
-                        <input type='text' name='recipeSearch' placeholder='Enter a search word'/>
-                    </label>
-                    <button type='submit'>Search</button>
+            <div className='nav-container nav-container--right'>
+                <form onSubmit={searchAllRecipes} className='nav-container__form'>
+                    <p className='nav-container__quick-search'>Quick Search</p>
+                    <Input type='text' name='recipeSearch' placeholder='Enter a search word' className='nav-container__input'/>
+                    <Button htmlType='submit' shape='round' className='nav-container__button'>{<SearchOutlined/>}</Button>
                 </form>
 
-                <Link to='/recipes/search'>
-                    <p>Search</p>
-                </Link>
-                <Link to='#'>
+                
+                <Link to='#' className='nav-container__avatar'>
                     <Avatar>{name[0]}</Avatar>
                 </Link>
             </div>

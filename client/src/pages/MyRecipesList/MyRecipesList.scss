@@ -1,0 +1,24 @@
+.recipe-list {
+
+    &__header {
+        font-size: 2rem;
+        margin: 2rem auto;
+        text-align: center;
+    }
+    
+    &__item {
+        position: relative;
+    }
+    &__delete {
+        position: absolute;
+        right: -0.5rem;
+        top: -0.5rem;
+        z-index: 1;
+    }
+}
+
+.ant-btn.recipe-list__search-button {
+    align-items: center;
+    display: flex;
+    margin: -1rem auto 1rem;
+}
