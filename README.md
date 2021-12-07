@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# KitchenCompanion Customizable Cookbook
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+helps you search for countless recipe ideas based on ingredients you have on hand to answer the dreaded question of "What am I going to make for dinner tonight?" Using KitchenCompanion, you can create custom searches through the Spoonacular API and favourite recipes so you can access them later at your convenience.
 
 ## Available Scripts
 
@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
+This runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
@@ -16,55 +16,62 @@ You will also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Home Page](./server/public/readme-captures/homePage.JPG)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Each recipe retrieved by the API can be added to the user's list of favourited recipes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Add to myKitchen Recipes button](./server/public/readme-captures/addToMyRecipes.JPG)
 
-### `npm run eject`
+The "What's in myKitchen?" sidebar allows the user to check the box of each food item they have on hand to filter recipes and use the Dinner Wheel.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![Ingredients On Hand component](./server/public/readme-captures/ingredientsOnHand.JPG)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Technologies Used
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### [React](https://reactjs.org/)
+Created with `create-react-app` using the React JS library.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### [spoonacular API](https://spoonacular.com/food-api)
+Recipe API used for data retrieval of recipes.
 
-## Learn More
+### [mySQL](https://www.mysql.com/)
+Stores user information and favourited recipes.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### [Knex.js](https://knexjs.org/)
+Makes queries to and from mySQL database.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### [Ant Design](https://ant.design/)
+Built with Ant Design UI framework components.
 
-### Code Splitting
+### [Winwheel.js](http://dougtesting.net/home)
+Uses basic code wheel for random dinner recipe selector.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### [Node.js](https://nodejs.org/en/)
+Runs server.
 
-### Analyzing the Bundle Size
+### [Express](http://expressjs.com/)
+Express web framework for Node.js.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### [Axios](https://axios-http.com/)
+Axios HTTP client makes API calls to spoonacular API.
 
-### Making a Progressive Web App
+### [SASS](https://sass-lang.com/)
+CSS extension language used with BEM naming principles.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### [uniqid](https://www.npmjs.com/package/uniqid)
+Creates unique IDs for recipes added to database.
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Badges
 
-### Deployment
+https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fimg.shields.io%2Ftwitter%2Furl%3Fstyle%3Dsocial%26url%3D%252Ftwitter%252FJimsCodes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+https://img.shields.io/github/watchers/jim-lougheed/kitchen-companion?style=social
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+

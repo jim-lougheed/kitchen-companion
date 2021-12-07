@@ -70,15 +70,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
     setIsSuccessfulModalVisible(false);
   };
 
-  const handleSuccessfulCancel = () => {
-    setIsSuccessfulModalVisible(false);
-  };
-
   const handleFailedOk = () => {
-    setIsFailedModalVisible(false);
-  };
-
-  const handleFailedCancel = () => {
     setIsFailedModalVisible(false);
   };
 
@@ -90,7 +82,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
         <div>
           <div className="recipe__container">
             <Card className="recipe__img-ingredients-container" loading={recipe ? false : true}>
-              <img src={recipe.image ? recipe.image : 'http://via.placeholder.com/556x370.png?text=No+Image+Available'} alt={recipe.title} className='recipe__img' />
+              <img src={recipe.image ? recipe.image : 'http://via.placeholder.com/300x200.png?text=No+Image+Available'} alt={recipe.title} className='recipe__img' />
               <div dangerouslySetInnerHTML={{__html: removeLastSentence(recipe.summary)}}/>
               <div className='recipe__servings-time-container'>
                 <p className='recipe__servings'>Servings: {recipe.servings}</p>
@@ -142,7 +134,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
             </Card>
             <div className='recipe__add-related-container'>
             <Button className='recipe__add-button' onClick={handleAddToFavourites} shape="round">
-              {<PlusOutlined />} Add to MyRecipes
+              {<PlusOutlined />} Add to myKitchen Recipes
             </Button>
             <h2 className='related-recipes__header'>Similar Recipes</h2>
             <ul className="related-recipes__container">

@@ -147,7 +147,7 @@ function Home() {
             onClick={handleAddToFavourites}
             shape="round"
           >
-            {<PlusOutlined />} Add to MyRecipes
+            {<PlusOutlined />} Add to myKitchen Recipes
           </Button>
         </div>
       </div>
