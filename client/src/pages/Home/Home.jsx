@@ -22,7 +22,6 @@ function Home() {
     axios
       .get(`/random`)
       .then(({ data: { recipes } }) => {
-        console.log(recipes);
         setFeaturedRecipes(recipes);
       })
       .catch((err) => console.error(err));
