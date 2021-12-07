@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Card, Tabs, Input, Button, Popover, Select } from 'antd';
+import { Card, Tabs, Input, Button, Popover, Select, Checkbox } from 'antd';
 import { SearchOutlined } from "@ant-design/icons";
 import './SearchRecipes.scss';
 
@@ -80,9 +80,9 @@ function SearchRecipes({ ingredients }) {
                             <Button htmlType='submit' shape='round' className='search__search-button'>{<SearchOutlined/>} Search</Button>
                         </form>
                     </TabPane>
-                    <TabPane tab="Search by 'What's in my fridge?" key='2'>
+                    <TabPane tab="Search by 'What's in myKitchen?'" key='2'>
                         <form onSubmit={searchByIngredientsOnHand} className='search__search-by-ingredients search__tab-container'>
-                            <p className='search__search-by-ingredients-description'>Search by whats in your fridge</p>
+                            <p className='search__search-by-ingredients-description'>Search by what's in your kitchen</p>
                             <Button htmlType='submit' shape='round' className='search__search-button'>{<SearchOutlined/>} Search</Button>
                         </form>
                     </TabPane>
@@ -166,8 +166,10 @@ function SearchRecipes({ ingredients }) {
                                 </Select>
                             <p className='search__label'>Exclude Ingredients</p>
                                 <TextArea type='text' name='excludeIngredients' id='excludeIngredients' placeholder='Enter ingredients to exclude, separated by a comma (",")' className='search__textarea'></TextArea>
+                                <div className='search__checkbox-container'>
+                                <Checkbox className='search__checkbox' name='includeIngredients' id='includeIngredients'></Checkbox>
                             <p className='search__label'>Include Ingredients from "What's in my fridge"</p>
-                                <Input type='checkbox' name='includeIngredients' id='includeIngredients'></Input>
+                                </div>
                             <p className='search__label'>Maximum Cook Time</p>
                                 <Input type='number' name='maxReadyTime' id='maxReadyTime' placeholder='Time in minutes' className='search__small-input'></Input>
                             <p className='search__label'>Keyword (required)</p>

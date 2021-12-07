@@ -23,21 +23,14 @@ app.use(express.static('public'));
 app.use('/myrecipes', myrecipesRoutes);
 
 /*
- *GET 6 RANDOM recipes for Home page
+ *GET 5 RANDOM recipes for Home page
  */
 app
     .get('/random', (req, res) => {
         axios
-            .get(`${process.env.API_URL}random${process.env.API_KEY}&number=6`)
+            .get(`${process.env.API_URL}random${process.env.API_KEY}&number=5`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
-
-        // const randomNumber = Math.floor(Math.random()*10);
-        // const randomSearchArray = ['chicken', 'mushrooms', 'beef', 'tomatoes', 'avocadoes', 'pasta', 'potatoes', 'pork', 'cheese', 'rice'];
-        // axios
-        //     .get(`${process.env.API_URL}?type=public&q=${randomSearchArray[randomNumber]}${process.env.API_KEY}&random=true`)
-        //     .then(({ data: { hits } }) => res.send(hits[randomNumber]))
-        //     .catch((err) => console.error(err))
     })
 
 /*
@@ -49,10 +42,6 @@ app
             .get(`${process.env.API_URL}${req.params.id}/information${process.env.API_KEY}`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
-        // axios
-        //     .get(`${process.env.API_URL}/${req.params.id}?type=public${process.env.API_KEY}`)
-        //     .then(({ data }) => res.send(data))
-        //     .catch((err) => console.error(err))
     })
     
 /*

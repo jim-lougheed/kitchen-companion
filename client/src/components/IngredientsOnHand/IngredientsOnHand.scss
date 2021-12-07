@@ -1,22 +1,11 @@
-// label {
-//     display: block;
-// }
+.ingredients-checklist {
+    font-family: 'Outfit', sans-serif;
 
-// .ingredients-checklist {
-//     border-left: 1px solid black;
-//     height: 100vh;
-//     left: 88vw;
-//     position: absolute;
-//     width: 10%;
-
-//     &__title {
-//         margin-top: 0;
-//         padding-top: 1rem;
-//     }
-// }
-
-.ingredients-checklist__title {
-    color: white;
+    &__title {
+        color: white;
+        padding: 0.5rem 0 0.25rem;
+        text-align: center;
+    }
 }
 
 .submenuIcon {

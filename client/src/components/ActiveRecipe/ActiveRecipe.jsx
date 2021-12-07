@@ -6,13 +6,15 @@ import ListedRecipeNoImage from "../ListedRecipeNoImage";
 
 import { calculateTime, removeLastSentence } from "../../utils/helpers";
 
-import { Card, Button, Timeline, Tabs, Popover } from "antd";
+import { Card, Button, Timeline, Tabs, Popover, Spin, Space, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import "./ActiveRecipe.scss";
 
 function ActiveRecipe({ params, addToShoppingList }) {
   const [recipe, setRecipe] = useState(null);
   const [relatedRecipes, setRelatedRecipes] = useState(null);
+  const [isSuccessfulModalVisible, setIsSuccessfulModalVisible] = useState(false);
+  const [isFailedModalVisible, setIsFailedModalVisible] = useState(false);
 
   useEffect(() => {
     const id = params.recipeId;
@@ -27,12 +29,6 @@ function ActiveRecipe({ params, addToShoppingList }) {
       .get(`/recipe/relatedTo/${id}`)
       .then(({ data }) => {
         setRelatedRecipes(data);
-      })
-      .then((data) => {
-        data.forEach((recipe) => {
-          axios
-            .get(`/recipe/${recipe.id}`)
-        })
       })
       .catch((err) => console.error(err));
   }, [params.recipeId]);
@@ -59,8 +55,30 @@ function ActiveRecipe({ params, addToShoppingList }) {
     };
     axios
       .post("/myrecipes", recipeBody)
-      .then(({ data }) => console.log(`Added recipe to MyFavourites: ${data}`))
+      .then(({ data }) => {
+        if (data === 'Successfully added to MyRecipes') {
+          setIsSuccessfulModalVisible(true) 
+        } else {
+          setIsFailedModalVisible(true)
+        }
+      })
       .catch((err) => console.error(err));
+  };
+
+  const handleSuccessfulOk = () => {
+    setIsSuccessfulModalVisible(false);
+  };
+
+  const handleSuccessfulCancel = () => {
+    setIsSuccessfulModalVisible(false);
+  };
+
+  const handleFailedOk = () => {
+    setIsFailedModalVisible(false);
+  };
+
+  const handleFailedCancel = () => {
+    setIsFailedModalVisible(false);
   };
 
   const { TabPane } = Tabs;
@@ -68,7 +86,6 @@ function ActiveRecipe({ params, addToShoppingList }) {
   return (
     <>
       {recipe ? (
-          
         <div>
           <div className="recipe__container">
             <Card className="recipe__img-ingredients-container" loading={recipe ? false : true}>
@@ -138,8 +155,16 @@ function ActiveRecipe({ params, addToShoppingList }) {
           <RecipeTags recipe={recipe} />
         </div>
       ) : (
-        <p>Loading...</p>
+        <Space size='large'>
+          <Spin size='large' tip='Loading...' className='loading-message'/>
+        </Space>
       )}
+      <Modal title='Success!' visible={isSuccessfulModalVisible} onOk={handleSuccessfulOk} onCancel={handleSuccessfulCancel}>
+      <p>This recipe has been added to myKitchen Recipes</p>
+      </Modal>
+      <Modal title='Recipe not added' visible={isFailedModalVisible} onOk={handleFailedOk} onCancel={handleFailedCancel}>
+      <p>This recipe has already been added to myKitchen Recipes</p>
+      </Modal>
     </>
   );
 }

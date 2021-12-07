@@ -23,11 +23,20 @@
     &__label {
         margin: 0.5rem auto 0.25rem;
     }
+
+    &__checkbox-container {
+        align-items: center;
+        display: flex;
+    }
+}
+
+.ant-checkbox-wrapper.search__checkbox {
+    margin-right: 1rem;
 }
 
 .ant-card.search__container {
-    margin: 2rem auto 0;
-    width: 32%;
+    margin: 2rem auto;
+    width: 45%;
 }
 
 .ant-btn.search__search-button {

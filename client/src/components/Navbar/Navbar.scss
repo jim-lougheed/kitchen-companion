@@ -1,23 +1,36 @@
-p {
-    padding: 0 1rem;
-}
-
 .navbar {
-    border-bottom: 1px solid black;
+    background: #ea744e;
     display: flex;
+    font-family: 'Outfit', sans-serif;
     height: 65px;
 }
 
 .nav-container {
     display: flex;
+    text-decoration: none;
+
+    &__link {
+        padding: 0 1rem;
+        color: #FFFFFF;
+        font-size: 1rem;
+    
+        &:hover {
+            color: #f7e9e5;
+        }
+    }
 
     &--left {
-        width: 75%;
+        width: 65%;
     }
 
     &--right {
         justify-content: space-around;
-        width: 25%;
+        width: 35%;
+    }
+
+    &__logo {
+        margin-top: -0.6rem;
+        width: 325px;
     }
 
     &__form {
@@ -31,6 +44,7 @@ p {
         padding: 0;
         width: 85px;
     }
+
 }
 
 .ant-input.nav-container__input {

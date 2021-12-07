@@ -16,7 +16,7 @@ function MyShoppingList({ shoppingList, addToShoppingList, deleteFromShoppingLis
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (shoppingList.includes(e. target.shoppingItem.value)) {
+        if (shoppingList.includes(e.target.shoppingItem.value)) {
             alert(`Your shopping list already includes ${e.target.shoppingItem.value}`)
         } else {
             if (e.target.shoppingItem.value !== '') {

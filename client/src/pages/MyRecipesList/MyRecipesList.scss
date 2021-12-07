@@ -2,23 +2,24 @@
 
     &__header {
         font-size: 2rem;
-        margin: 2rem auto;
+        margin: 2rem auto 0;
         text-align: center;
     }
     
     &__item {
         position: relative;
     }
-    &__delete {
-        position: absolute;
-        right: -0.5rem;
-        top: -0.5rem;
-        z-index: 1;
-    }
 }
 
 .ant-btn.recipe-list__search-button {
     align-items: center;
     display: flex;
-    margin: -1rem auto 1rem;
+    margin: 0 auto 1rem;
+}
+
+.ant-btn.recipe-list__delete {
+    position: absolute;
+    right: -0.75rem;
+    top: 0;
+    z-index: 1;
 }

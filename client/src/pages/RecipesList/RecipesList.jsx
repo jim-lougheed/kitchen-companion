@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import ListedRecipe from '../../components/ListedRecipe';
 
+import { Spin, Space } from 'antd';
 import './RecipesList.scss';
 
 function RecipesList({ match: { params }}) {
@@ -28,7 +29,9 @@ function RecipesList({ match: { params }}) {
                     return <ListedRecipe key={recipe.id} recipe={recipe} />
                     })}
             </ul>
-            : <p>Loading...</p>}
+            : <Space size='large'>
+          <Spin size='large' tip='Loading...' className='loading-message'/>
+        </Space>}
         </>
     )
 }

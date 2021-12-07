@@ -7,8 +7,6 @@ function MyRecipesSearchResults({ match: { params }}) {
     const keyword = (params.search.substring(0, (params.search.length-6)))
     const restriction = (params.search.substring((params.search.length-5), (params.search.length)))
 
-    let noHitCount = 0;
-
     const [myRecipes, setMyRecipes] = useState(null);
 
     useEffect(() => {

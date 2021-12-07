@@ -3,6 +3,8 @@ import Winwheel from "winwheel";
 import axios from "axios";
 import ListedRecipe from "../../components/ListedRecipe";
 
+import './DinnerSelector.scss';
+
 function DinnerSelector({ match: { params } }) {
 
   const [winningRecipe, setWinningRecipe] = useState(null);
@@ -86,13 +88,18 @@ function DinnerSelector({ match: { params } }) {
 
   return (
     <>
-      <h1>Dinner Selector</h1>
+      <h1 className='dinner-wheel__header'>myKitchen Dinner Wheel</h1>
+      <div className='dinner-wheel__container'>
       <canvas id="myCanvas" width="880" height="500" onClick={startSpin}>
         Canvas not supported, use another browser.
       </canvas>
       {winningRecipe &&
-      <ListedRecipe key={winningRecipe.id} componentClassName='recipe-list' recipe={winningRecipe} />
+      <div className='dinner-wheel__winning-segment'>
+      <p className='dinner-wheel__winning-segment-name'>And the winner is...</p>
+      <ListedRecipe key={winningRecipe.id} recipe={winningRecipe} />
+      </div>
       }
+      </div>
     </>
   );
 }

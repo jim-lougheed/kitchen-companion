@@ -1,5 +1,3 @@
-
-
 .ant-layout-has-sider {
   display: flex;
 }
@@ -8,14 +6,36 @@
   padding: 0;
 }
 
+.ant-layout-header .ant-menu {
+  background: #ea744e;
+  color: #FFFFFF;
+}
+
 .ant-layout-content {
+  background: #FFFFFF;
+  font-family: 'Bree Serif', serif;
+  min-height: calc(100vh - 7rem);
   width: calc(100% - 200px);
+}
+
+.ant-layout-sider-children {
+  background: #1A5E63;
+}
+
+.ant-card {
+  background: #CDEAC0;
+  outline: 1px solid #1A5E63;
+}
+
+.ant-card-body, .ant-card-head {
+  background: #CDEAC0;
 }
 
 .ant-timeline-item-last > .ant-timeline-item-content{ 
   min-height: 0;
   padding-bottom: 1rem;
 }
+
 .ant-timeline-item-tail {
     display: none;
 }
@@ -29,8 +49,45 @@
   width: 100%;
 }
 
+.ant-tabs-tab:hover {
+  color: #1A5E63;
+}
+
+.ant-btn {
+  background: #f7f1f0;
+}
+
 .ant-btn-circle {
+  background: #EA744E;
   margin-left: 1rem;
+}
+
+.ant-layout-footer {
+  color: #FFFFFF;
+  height: 2rem;
+  padding: 0;
+}
+
+.ant-avatar {
+  background: #7fcfb1;
+  border: 1px solid black;
+  height: 40px;
+  font-size: 1.5rem;
+  width: 40px;
+}
+
+.ant-space {
+  display: flex;
+  justify-content: center;
+  margin-top: 30vh;
+}
+
+.ant-spin-dot-item {
+  background: #ea744e;  
+}
+
+.ant-spin-text {
+  color: #ea744e;
 }
 
 @import '~antd/dist/antd.css';
