@@ -2,6 +2,8 @@
 
     &__container {
         display: flex;
+        justify-content: center;
+        margin-top: 3rem;
     }
 
     &__img-ingredients-container {
@@ -10,9 +12,58 @@
         width: 33%;
     }
 
+    &__servings-time-container {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 1rem;
+    }
+
+    &__servings, &__time {
+        padding: 0;
+    }
+
     &__name-directions-container {
         display: flex;
         flex-direction: column;
         width: 33%;
     }
+
+    &__ingredient-container {
+        display: flex;
+        align-items: center;
+        padding-bottom: 1rem;
+    }
+
+    &__ingredient-add-button {
+        margin-top: -12px;
+    }
+    
+    &__step {
+        text-align: left;
+    }
+
+    &__add-related-container {
+        margin-left: 3rem;
+        width: 20%;
+    }
+
+    &__add-button {
+        margin-left: 3rem;
+    }
+
+    &__tag-container {
+        display: flex;
+        text-align: center;
+    }
 }
+
+.related-recipes {
+    &__header {
+        margin: 2rem 0;
+    }
+
+    &__container {
+        padding: 0
+    }
+}
+

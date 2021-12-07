@@ -21,7 +21,7 @@ function RecipesListByIngredients({ match: { params }}) {
     
     return (
         <>
-            <h1>Search Results</h1>
+            <h1 className='recipe-list__header'>Results</h1>
             {recipes ?
             <ul className='recipe-list__container'>
                     {recipes.map((recipe) => {

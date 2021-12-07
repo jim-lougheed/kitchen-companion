@@ -4,6 +4,11 @@ import axios from 'axios';
 
 import ListedRecipe from '../../components/ListedRecipe';
 
+import { Button } from 'antd';
+import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
+
+import './MyRecipesList.scss';
+
 function MyRecipesList() {
 
     const [myRecipes, setMyRecipes] = useState(null);
@@ -35,16 +40,21 @@ function MyRecipesList() {
     
     return (    
         <>
-            <h1>My Recipes</h1>
+            <h1 className='recipe-list__header'>MyKitchen Recipes</h1>
             <Link to='/myrecipes/search'>
-                <button>Search MyRecipes</button>
+                <Button htmlType='submit' shape='round' className='recipe-list__search-button'>{<SearchOutlined/>} Search MyKitchen Recipes</Button>
             </Link>
             {myRecipes ?
             <ul className='recipe-list__container'>
                 {myRecipes.map((recipe) => {
-                    return <div><ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
-                        <button onClick={() => deleteRecipe(recipe.id)}>x</button>
-                        </div>
+                    return (
+                        <li className='recipe-list__item'>
+                            <ListedRecipe key={recipe.id} recipe={recipe}/>
+                            <Button htmlType='submit' shape='circle' size='small' onClick={() => deleteRecipe(recipe.id)} className='recipe-list__delete'>
+                                {<CloseOutlined/>}
+                            </Button>
+                        </li>
+                    )
                 })}
             </ul>
             : <p>Loading...</p>}

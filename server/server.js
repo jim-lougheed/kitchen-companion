@@ -23,21 +23,14 @@ app.use(express.static('public'));
 app.use('/myrecipes', myrecipesRoutes);
 
 /*
- *GET a RANDOM recipe based on 10 search items
+ *GET 5 RANDOM recipes for Home page
  */
 app
     .get('/random', (req, res) => {
         axios
-            .get(`${process.env.API_URL}random${process.env.API_KEY}`)
+            .get(`${process.env.API_URL}random${process.env.API_KEY}&number=5`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
-
-        // const randomNumber = Math.floor(Math.random()*10);
-        // const randomSearchArray = ['chicken', 'mushrooms', 'beef', 'tomatoes', 'avocadoes', 'pasta', 'potatoes', 'pork', 'cheese', 'rice'];
-        // axios
-        //     .get(`${process.env.API_URL}?type=public&q=${randomSearchArray[randomNumber]}${process.env.API_KEY}&random=true`)
-        //     .then(({ data: { hits } }) => res.send(hits[randomNumber]))
-        //     .catch((err) => console.error(err))
     })
 
 /*
@@ -49,10 +42,6 @@ app
             .get(`${process.env.API_URL}${req.params.id}/information${process.env.API_KEY}`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
-        // axios
-        //     .get(`${process.env.API_URL}/${req.params.id}?type=public${process.env.API_KEY}`)
-        //     .then(({ data }) => res.send(data))
-        //     .catch((err) => console.error(err))
     })
     
 /*
@@ -66,13 +55,13 @@ app
     })
 
 /*
- *GET all recipes by category 
+ *GET 20 recipes by keyword 
  */
 app
-    .get('/recipes/:category', (req, res) => {
-        console.log(req.params.category)
+    .get('/recipes/:keyword', (req, res) => {
+        console.log(`${process.env.API_URL}complexSearch${process.env.API_KEY}${req.params.keyword}&number=30`)
     axios
-        .get(`${process.env.API_URL}complexSearch${process.env.API_KEY}${req.params.category}`)
+        .get(`${process.env.API_URL}complexSearch${process.env.API_KEY}${req.params.keyword}&number=30`)
         .then(({ data }) => res.send(data))
         .catch((err) => console.error(err))
 })

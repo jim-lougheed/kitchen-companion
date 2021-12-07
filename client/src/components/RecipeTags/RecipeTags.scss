@@ -1,0 +1,12 @@
+.recipe-tags {
+    
+    &__container {
+        display: flex;
+        margin: 1rem 0 1rem 3rem;
+    }
+}
+
+.ant-tag.recipe-tags {
+    margin: 0 2rem;
+    font-size: 1rem;
+}

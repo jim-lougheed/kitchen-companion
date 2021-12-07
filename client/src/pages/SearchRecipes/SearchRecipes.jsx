@@ -1,12 +1,19 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { Card, Tabs, Input, Button, Popover, Select, Checkbox } from 'antd';
+import { SearchOutlined } from "@ant-design/icons";
+import './SearchRecipes.scss';
+
 function SearchRecipes({ ingredients }) {
+
+    const [inputKeyword, setInputKeyword] = useState(null);
+    const [visible, setVisible] = useState(false);
     
     let history = useHistory(); 
 
-    const searchAllRecipes = (e) => {
-        e.preventDefault();
-        history.push(`/recipes/&query=${e.target[0].value}`)
+    const handleChange = (e) => {
+        setInputKeyword(e.target.value)
     }
 
     const searchByIngredientsOnHand = (e) => {
@@ -17,7 +24,11 @@ function SearchRecipes({ ingredients }) {
             listOfIngredients += `${key},+`; 
             }
         }
-        history.push(`/recipes/byIngredients/${listOfIngredients}`)
+        if (listOfIngredients) {
+            history.push(`/recipes/byIngredients/${listOfIngredients}`)
+        } else {
+            alert('Select some items you have on hand')
+        }
     }
 
     const dinnerSelectorByIngredientsOnHand = (e) => {
@@ -28,128 +39,149 @@ function SearchRecipes({ ingredients }) {
             listOfIngredients += `${key},+`; 
             }
         }
-        history.push(`/dinnerselector/${listOfIngredients}`)
+        if (listOfIngredients) {
+            history.push(`/dinnerselector/${listOfIngredients}`)
+        } else {
+            alert('Select some items you have on hand')
+        }
     }
 
     const advancedSearch = (e) => {
         e.preventDefault();
-        let listOfIngredients = '';
-        for (const key in ingredients) {
-            if (ingredients[key] === true) {
-            listOfIngredients += `${key},+`; 
+        if (inputKeyword === '' || inputKeyword === null)
+        {
+            setInputKeyword('')
+            setVisible(true)
+        } else {
+            let listOfIngredients = '';
+            for (const key in ingredients) {
+                if (ingredients[key] === true) {
+                listOfIngredients += `${key},+`; 
+                }
             }
-        }
-        const { diets, cuisines, intolerances, type, maxReadyTime, excludeIngredients } = e.target;
-        const searchURL = `/recipes/${diets.value ? `&diet=${diets.value}` : ''}${cuisines.value ? `&cuisine=${cuisines.value}` : ''}${intolerances.value ? `&intolerances=${intolerances.value}` : ''}${type.value ? `&type=${type.value}` : ''}${maxReadyTime.value ? `&maxReadyTime=${maxReadyTime.value}` : ''}${excludeIngredients.value ? `&excludeIngredients=${excludeIngredients.value}` : ''}${document.getElementById('includeIngredients').checked ? `&includeIngredients=${listOfIngredients}` : ''}`
-        history.push(searchURL)
+            const { diets, cuisines, intolerances, type, maxReadyTime, excludeIngredients } = e.target;
+            const searchURL = `/recipes/&query=${inputKeyword}${diets.value ? `&diet=${diets.value}` : ''}${cuisines.value ? `&cuisine=${cuisines.value}` : ''}${intolerances.value ? `&intolerances=${intolerances.value}` : ''}${type.value ? `&type=${type.value}` : ''}${maxReadyTime.value ? `&maxReadyTime=${maxReadyTime.value}` : ''}${excludeIngredients.value ? `&excludeIngredients=${excludeIngredients.value}` : ''}${document.getElementById('includeIngredients').checked ? `&includeIngredients=${listOfIngredients}` : ''}`
+            history.push(searchURL)
+        } 
     }
 
+    const { TabPane } = Tabs;
+    const { TextArea } = Input;
+    const { Option } = Select;
     
     return (
         <>
-            <form onSubmit={searchAllRecipes}>
-                <label>Quick search
-                    <input type='text' name='recipeSearch' placeholder='Enter a keyword'/>
-                        </label>
-                    <button type='submit'>Search</button>
-                </form>
-                <form onSubmit={searchByIngredientsOnHand}>
-                    <label>Search by whats in your fridge
-                    </label>
-                    <button type='submit'>Search</button>
-                </form>
-                <form onSubmit={dinnerSelectorByIngredientsOnHand}>
-                    <label>Use the dinner wheel!
-                    </label>
-                    <button type='submit'>Search</button>
-                </form>
-                <form onSubmit={advancedSearch}>
-                    <label for='diets'>Diets</label>
-                        <select name='diets' id='diets'>
-                            <option value=''></option>
-                            <option value='gluten-free'>Gluten-free</option>
-                            <option value='ketogenic'>Keto</option>
-                            <option value='lacto-vegetarian'>Lacto-Vegetarian</option>
-                            <option value='low-fodmap'>Low FODMAP</option>
-                            <option value='ovo-vegetarian'>Ovo-Vegetarian</option>
-                            <option value='paleo'>Paleo</option>
-                            <option value='pescetarian'>Pescetarian</option>
-                            <option value='primal'>Primal</option>
-                            <option value='vegan'>Vegan</option>
-                            <option value='vegetarian'>Vegetarian</option>
-                        </select>
-                    <label for='cuisines'>Cuisines</label>
-                        <select name='cuisines' id='cuisines'>
-                            <option value=''></option>
-                            <option value='african'>African</option>
-                            <option value='american'>American</option>
-                            <option value='british'>British</option>
-                            <option value='cajun'>Cajun</option>
-                            <option value='caribbean'>Caribbean</option>
-                            <option value='chinese'>Chinese</option>
-                            <option value='eastern-european'>Eastern European</option>
-                            <option value='european'>European</option>
-                            <option value='french'>French</option>
-                            <option value='german'>German</option>
-                            <option value='greek'>Greek</option>
-                            <option value='indian'>Indian</option>
-                            <option value='irish'>Irish</option>
-                            <option value='italian'>Italian</option>
-                            <option value='japanese'>Japanese</option>
-                            <option value='jewish'>Jewish</option>
-                            <option value='korean'>Korean</option>
-                            <option value='latin-american'>Latin American</option>
-                            <option value='mediterranean'>Mediterranean</option>
-                            <option value='middle-eastern'>Middle Eastern</option>
-                            <option value='nordic'>Nordic</option>
-                            <option value='southern'>Southern</option>
-                            <option value='spanish'>Spanish</option>
-                            <option value='thai'>Thai</option>
-                            <option value='vietnamese'>Vietnamese</option>
-                        </select>
-                        <label for='intolerances'>Intolerances</label>
-                        <select name='intolerances' id='intolerances'>
-                            <option value=''></option>
-                            <option value='dairy'>Dairy</option>
-                            <option value='egg'>Egg</option>
-                            <option value='gluten'>Gluten</option>
-                            <option value='grain'>Grains</option>
-                            <option value='peanut'>Peanut</option>
-                            <option value='seafood'>Seafood</option>
-                            <option value='sesame'>Sesame</option>
-                            <option value='shellfish'>Shellfish</option>
-                            <option value='soy'>Soy</option>
-                            <option value='sulfite'>Sulfites</option>
-                            <option value='tree-nut'>Tree Nuts</option>
-                            <option value='wheat'>Wheat</option>
-                        </select>
-                        <label for='type'>Meal Type</label>
-                        <select name='type' id='type'>
-                            <option value=''></option>
-                            <option value='appetizer'>Appetizer</option>
-                            <option value='bread'>Bread</option>
-                            <option value='breakfast'>Breakfast</option>
-                            <option value='beverage'>Beverage</option>
-                            <option value='dessert'>Dessert</option>
-                            <option value='drink'>Drink</option>
-                            <option value='fingerfood'>Finger Food</option>
-                            <option value='main-course'>Main Course</option>
-                            <option value='marinade'>Marinade</option>
-                            <option value='salad'>Salad</option>
-                            <option value='side-dish'>Side Dish</option>
-                            <option value='snack'>Snack</option>
-                            <option value='soup'>Soup</option>
-                        </select>
-                        <label for='excludeIngredients'>Exclude Ingredients</label>
-                            <input type='text' name='excludeIngredients' id='excludeIngredients' placeholder='Enter any ingredients to exclude (separated by commas, ",")'></input>
-                        <label for='includeIngredients'>Include Ingredients from "What's in my fridge"</label>
-                            <input type='checkbox' name='includeIngredients' id='includeIngredients'></input>
-                        <label for='maxReadyTime'>Maximum Cook Time</label>
-                            <input type='number' name='maxReadyTime' id='maxReadyTime' placeholder='Time in minutes'></input>
-                            <button type='submit'>Search</button>
-
-                </form>
-                </>
+        <h1 className='recipe-list__header'>Search All Recipes</h1>
+            <Card className='search__container'>
+                <Tabs defaultActiveKey='1'>
+                    <TabPane tab='DinnerWheel' key='1'>
+                        <form onSubmit={dinnerSelectorByIngredientsOnHand} className='search__dinner-wheel search__tab-container'>
+                            <p className='search__dinner-wheel-description'>Use the KitchenCompanion Dinner Wheel to randomly select a recipe using ingredients you have on hand</p>
+                            <Button htmlType='submit' shape='round' className='search__search-button'>{<SearchOutlined/>} Search</Button>
+                        </form>
+                    </TabPane>
+                    <TabPane tab="Search by 'What's in myKitchen?'" key='2'>
+                        <form onSubmit={searchByIngredientsOnHand} className='search__search-by-ingredients search__tab-container'>
+                            <p className='search__search-by-ingredients-description'>Search by what's in your kitchen</p>
+                            <Button htmlType='submit' shape='round' className='search__search-button'>{<SearchOutlined/>} Search</Button>
+                        </form>
+                    </TabPane>
+                    <TabPane tab='Advanced Search' key='3'>
+                        <form onSubmit={advancedSearch} className='search__advanced-search search__tab-container'>
+                            <label htmlFor='diets' className='search__label'>Diets</label>
+                                <Select name='diets' id='diets' className='search__select-menu'>
+                                    <Option value=''></Option>
+                                    <Option value='gluten-free'>Gluten-free</Option>
+                                    <Option value='ketogenic'>Keto</Option>
+                                    <Option value='lacto-vegetarian'>Lacto-Vegetarian</Option>
+                                    <Option value='low-fodmap'>Low FODMAP</Option>
+                                    <Option value='ovo-vegetarian'>Ovo-Vegetarian</Option>
+                                    <Option value='paleo'>Paleo</Option>
+                                    <Option value='pescetarian'>Pescetarian</Option>
+                                    <Option value='primal'>Primal</Option>
+                                    <Option value='vegan'>Vegan</Option>
+                                    <Option value='vegetarian'>Vegetarian</Option>
+                                </Select>
+                            <label htmlFor='cuisines' className='search__label'>Cuisines</label>
+                                <Select name='cuisines' id='cuisines' className='search__select-menu'>
+                                    <Option value=''></Option>
+                                    <Option value='african'>African</Option>
+                                    <Option value='american'>American</Option>
+                                    <Option value='british'>British</Option>
+                                    <Option value='cajun'>Cajun</Option>
+                                    <Option value='caribbean'>Caribbean</Option>
+                                    <Option value='chinese'>Chinese</Option>
+                                    <Option value='eastern-european'>Eastern European</Option>
+                                    <Option value='european'>European</Option>
+                                    <Option value='french'>French</Option>
+                                    <Option value='german'>German</Option>
+                                    <Option value='greek'>Greek</Option>
+                                    <Option value='indian'>Indian</Option>
+                                    <Option value='irish'>Irish</Option>
+                                    <Option value='italian'>Italian</Option>
+                                    <Option value='japanese'>Japanese</Option>
+                                    <Option value='jewish'>Jewish</Option>
+                                    <Option value='korean'>Korean</Option>
+                                    <Option value='latin-american'>Latin American</Option>
+                                    <Option value='mediterranean'>Mediterranean</Option>
+                                    <Option value='middle-eastern'>Middle Eastern</Option>
+                                    <Option value='nordic'>Nordic</Option>
+                                    <Option value='southern'>Southern</Option>
+                                    <Option value='spanish'>Spanish</Option>
+                                    <Option value='thai'>Thai</Option>
+                                    <Option value='vietnamese'>Vietnamese</Option>
+                                </Select>
+                            <label htmlFor='intolerances' className='search__label'>Intolerances</label>
+                                <Select name='intolerances' id='intolerances' className='search__select-menu'>
+                                    <Option value=''></Option>
+                                    <Option value='dairy'>Dairy</Option>
+                                    <Option value='egg'>Egg</Option>
+                                    <Option value='gluten'>Gluten</Option>
+                                    <Option value='grain'>Grains</Option>
+                                    <Option value='peanut'>Peanut</Option>
+                                    <Option value='seafood'>Seafood</Option>
+                                    <Option value='sesame'>Sesame</Option>
+                                    <Option value='shellfish'>Shellfish</Option>
+                                    <Option value='soy'>Soy</Option>
+                                    <Option value='sulfite'>Sulfites</Option>
+                                    <Option value='tree-nut'>Tree Nuts</Option>
+                                    <Option value='wheat'>Wheat</Option>
+                                </Select>
+                            <label htmlFor='type' className='search__label'>Meal Type</label>
+                                <Select name='type' id='type' className='search__select-menu'>
+                                    <Option value=''></Option>
+                                    <Option value='appetizer'>Appetizer</Option>
+                                    <Option value='bread'>Bread</Option>
+                                    <Option value='breakfast'>Breakfast</Option>
+                                    <Option value='beverage'>Beverage</Option>
+                                    <Option value='dessert'>Dessert</Option>
+                                    <Option value='drink'>Drink</Option>
+                                    <Option value='fingerfood'>Finger Food</Option>
+                                    <Option value='main-course'>Main Course</Option>
+                                    <Option value='marinade'>Marinade</Option>
+                                    <Option value='salad'>Salad</Option>
+                                    <Option value='side-dish'>Side Dish</Option>
+                                    <Option value='snack'>Snack</Option>
+                                    <Option value='soup'>Soup</Option>
+                                </Select>
+                            <p className='search__label'>Exclude Ingredients</p>
+                                <TextArea type='text' name='excludeIngredients' id='excludeIngredients' placeholder='Enter ingredients to exclude, separated by a comma (",")' className='search__textarea'></TextArea>
+                                <div className='search__checkbox-container'>
+                                <Checkbox className='search__checkbox' name='includeIngredients' id='includeIngredients'></Checkbox>
+                            <p className='search__label'>Include Ingredients from "What's in my fridge"</p>
+                                </div>
+                            <p className='search__label'>Maximum Cook Time</p>
+                                <Input type='number' name='maxReadyTime' id='maxReadyTime' placeholder='Time in minutes' className='search__small-input'></Input>
+                            <p className='search__label'>Keyword (required)</p>
+                            <Popover content='Please enter a keyword before clicking "Search"' visible={visible}>
+                                <Input type='text' name='keyword' placeholder='Enter a keyword' className={`search__small-input search__small-input${inputKeyword === '' && `--empty`}`} onChange={handleChange}/>
+                            </Popover>
+                            <Button htmlType='submit' shape='round' className='search__search-button'>{<SearchOutlined/>} Search</Button>
+                        </form>
+                    </TabPane>
+                </Tabs>
+            </Card>
+        </>
     )
 }
 

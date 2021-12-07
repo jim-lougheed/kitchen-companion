@@ -3,6 +3,8 @@ import Winwheel from "winwheel";
 import axios from "axios";
 import ListedRecipe from "../../components/ListedRecipe";
 
+import './DinnerSelector.scss';
+
 function DinnerSelector({ match: { params } }) {
 
   const [winningRecipe, setWinningRecipe] = useState(null);
@@ -21,38 +23,38 @@ function DinnerSelector({ match: { params } }) {
       canvasId: "myCanvas",
       numSegments: 6,
       textLineWidth: 1,
-      textFontSize: 18,
+      textFontSize: 14,
       responsive: true,
       segments: [
         {
           id: data[2].id,
           fillStyle: "#FBF46D",
-          text: data[2].title.substring(0, 20) + "...",
+          text: `${data[2].title.substring(0, 28)}${data[2].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[6].id,
           fillStyle: "#77E4D4",
-          text: data[6].title.substring(0, 20) + "...",
+          text: `${data[6].title.substring(0, 28)}${data[6].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[11].id,
           fillStyle: "#B4FE98",
-          text: data[11].title.substring(0, 20) + "...",
+          text: `${data[11].title.substring(0, 28)}${data[11].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[13].id,
           fillStyle: "#FBF46D",
-          text: data[13].title.substring(0, 20) + "...",
+          text: `${data[13].title.substring(0, 28)}${data[13].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[16].id,
           fillStyle: "#77E4D4",
-          text: data[16].title.substring(0, 20) + "...",
+          text: `${data[16].title.substring(0, 28)}${data[16].title.length > 28 ? '...' : ''}`,
         },
         {
           id: data[19].id,
           fillStyle: "#B4FE98",
-          text: data[19].title.substring(0, 20) + "...",
+          text: `${data[19].title.substring(0, 28)}${data[19].title.length > 28 ? '...' : ''}`,
         },
       ],
       lineWidth: 3,
@@ -79,7 +81,6 @@ function DinnerSelector({ match: { params } }) {
     axios
       .get(`/recipe/${winningSegment.id}`)
       .then(({ data }) => {
-        console.log(data)
         setWinningRecipe(data)
       })
       .catch((err) => console.error(err))
@@ -87,13 +88,18 @@ function DinnerSelector({ match: { params } }) {
 
   return (
     <>
-      <h1>Dinner Selector</h1>
+      <h1 className='dinner-wheel__header'>myKitchen Dinner Wheel</h1>
+      <div className='dinner-wheel__container'>
       <canvas id="myCanvas" width="880" height="500" onClick={startSpin}>
         Canvas not supported, use another browser.
       </canvas>
       {winningRecipe &&
-      <ListedRecipe key={winningRecipe.id} componentClassName='recipe-list' recipe={winningRecipe} />
+      <div className='dinner-wheel__winning-segment'>
+      <p className='dinner-wheel__winning-segment-name'>And the winner is...</p>
+      <ListedRecipe key={winningRecipe.id} recipe={winningRecipe} />
+      </div>
       }
+      </div>
     </>
   );
 }

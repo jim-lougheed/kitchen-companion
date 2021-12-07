@@ -2,8 +2,12 @@
 const usersData = [
   {
     id: 1,
+    email: 'jims.codes@gmail.com',
+    password: 'password',
     first_name: 'Jim',
-    last_name: 'Lougheed'
+    last_name: 'Lougheed',
+    shoppingList: JSON.stringify(['celery', 'lettuce']),
+    dietaryRestriction: null
   }
 ]
 

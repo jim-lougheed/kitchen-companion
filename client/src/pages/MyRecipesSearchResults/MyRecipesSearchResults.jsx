@@ -7,8 +7,6 @@ function MyRecipesSearchResults({ match: { params }}) {
     const keyword = (params.search.substring(0, (params.search.length-6)))
     const restriction = (params.search.substring((params.search.length-5), (params.search.length)))
 
-    let noHitCount = 0;
-
     const [myRecipes, setMyRecipes] = useState(null);
 
     useEffect(() => {
@@ -44,12 +42,7 @@ function MyRecipesSearchResults({ match: { params }}) {
                     }    
                     } else if (recipe.extendedIngredients.toLowerCase().includes(keyword.toLowerCase()) || recipe.analyzedInstructions.toLowerCase().includes(keyword.toLowerCase()) || recipe.dishTypes.toLowerCase().includes(keyword.toLowerCase()) || recipe.cuisines.toLowerCase().includes(keyword.toLowerCase())) {
                         return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe}/>
-                    } else {
-                        noHitCount++
-                        if (noHitCount === 5) {
-                            return <h3>No Results Found</h3>
-                        }
-                    }
+                    } 
                     return null
                 })}
             </ul>

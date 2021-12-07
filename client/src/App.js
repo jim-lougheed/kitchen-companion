@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import IngredientsOnHand from './components/IngredientsOnHand';
 
 import Home from './pages/Home';
+import Login from './components/Login/Login';
 
 import Recipe from './pages/Recipe/Recipe';
 import RecipesList from './pages/RecipesList';
@@ -16,6 +17,7 @@ import MyRecipesSearchResults from './pages/MyRecipesSearchResults';
 import DinnerSelector from './pages/DinnerSelector';
 import MyShoppingList from './pages/MyShoppingList';
 import RecipesListByIngredients from './pages/RecipesListByIngredients';
+import PageFooter from './components/PageFooter';
 
 import './App.scss';
 
@@ -53,6 +55,16 @@ class App extends React.Component {
     })
   }
 
+  deleteFromShoppingList = (e, item) => {
+    e.preventDefault();
+    const newList = this.state.shoppingList.filter((listItem) => {
+      return listItem !== item
+    })
+    this.setState({
+      shoppingList: newList
+    })
+  }
+
   render() {
   return (
     <div className="App">
@@ -64,7 +76,8 @@ class App extends React.Component {
           <Layout>
             <Content>
               <Switch>
-                <Route path='/home' exact component={Home} />
+                <Route path='/login' exact component={Login} />
+                <Route path='/' exact component={Home} />
                 <Route path='/recipes/search' exact render={() => <SearchRecipes ingredients={this.state}/> }/>
                 <Route path='/recipes/byIngredients/:ingredients' component={RecipesListByIngredients} />
                 <Route path='/recipes/:search' component={RecipesList} />
@@ -73,14 +86,16 @@ class App extends React.Component {
                 <Route path='/myrecipes/search' exact component={SearchMyRecipes} />
                 <Route path='/myrecipes/:search' exact component={MyRecipesSearchResults} />
                 <Route path='/dinnerselector/:ingredients' render={(renderProps) => <DinnerSelector ingredients={this.state} {...renderProps}/>} />
-                <Route path='/myshoppinglist' render={() => <MyShoppingList shoppingList={this.state.shoppingList} addToShoppingList={this.addToShoppingList} /> } />
+                <Route path='/myshoppinglist' render={() => <MyShoppingList shoppingList={this.state.shoppingList} addToShoppingList={this.addToShoppingList} deleteFromShoppingList={this.deleteFromShoppingList} /> } />
               </Switch>
             </Content>
             <Sider>
               <IngredientsOnHand toggleIngredientsOnHand={this.toggleIngredientsOnHand} ingredients={this.state} />
             </Sider>
           </Layout>
-          <Footer>Footer</Footer>
+          <Footer>
+            <PageFooter />
+          </Footer>
         </Layout>
       </BrowserRouter>
     </div>

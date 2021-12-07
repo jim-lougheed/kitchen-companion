@@ -1,0 +1,53 @@
+.search {
+
+    &__tab-container {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        width: 50%;
+    }
+
+    &__search-by-ingredients-description {
+        text-align: center;
+    }
+
+    &__select-menu {
+        min-width: 50%;
+    }
+
+    &__textarea {
+        resize: none;
+    }
+
+    &__label {
+        margin: 0.5rem auto 0.25rem;
+    }
+
+    &__checkbox-container {
+        align-items: center;
+        display: flex;
+    }
+}
+
+.ant-checkbox-wrapper.search__checkbox {
+    margin-right: 1rem;
+}
+
+.ant-card.search__container {
+    margin: 2rem auto;
+    width: 45%;
+}
+
+.ant-btn.search__search-button {
+    align-items: center;
+    display: flex;
+    margin: 1rem auto 0;
+}
+
+.ant-input.search__small-input {
+    width: 55%;
+    &--empty {
+        outline: 1px solid red;
+    }
+}
