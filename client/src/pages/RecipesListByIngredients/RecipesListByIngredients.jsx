@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { Space, Spin } from 'antd';
 import ListedRecipe from '../../components/ListedRecipe';
 
 function RecipesListByIngredients({ match: { params }}) {
-    console.log(params)
 
     const [recipes, setRecipes] = useState(null);
     
@@ -12,7 +12,6 @@ function RecipesListByIngredients({ match: { params }}) {
         axios
             .get(`/recipes/byIngredients/${params.ingredients}`)
             .then(({ data }) => {
-                console.log(data)
                 setRecipes(data)
             })
             .catch((err) => console.error(err))
@@ -28,7 +27,9 @@ function RecipesListByIngredients({ match: { params }}) {
                     return <ListedRecipe key={recipe.id} componentClassName='recipe-list' recipe={recipe} />
                     })}
             </ul>
-            : <p>Loading...</p>}
+            : <Space size='large'>
+          <Spin size='large' tip='Loading...' className='loading-message'/>
+        </Space>}
         </>
     )
 }

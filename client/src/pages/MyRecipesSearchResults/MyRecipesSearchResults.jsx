@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import { Space, Spin } from 'antd';
 import ListedRecipe from '../../components/ListedRecipe';
 
 function MyRecipesSearchResults({ match: { params }}) {
@@ -20,7 +21,7 @@ function MyRecipesSearchResults({ match: { params }}) {
 
     return (
         <>
-            <h1>Search Results</h1>
+            <h1 className='recipe-list__header'>Results</h1>
             {myRecipes ?
             <ul className='recipe-list__container'>
                 {myRecipes.map((recipe) => {
@@ -46,7 +47,9 @@ function MyRecipesSearchResults({ match: { params }}) {
                     return null
                 })}
             </ul>
-            : <p>Loading...</p>}
+            : <Space size='large'>
+          <Spin size='large' tip='Loading...' className='loading-message'/>
+        </Space>}
         </>
     )
 }

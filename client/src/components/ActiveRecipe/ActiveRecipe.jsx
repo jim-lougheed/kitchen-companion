@@ -21,6 +21,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
     axios
       .get(`/recipe/${id}`)
       .then(({ data }) => {
+        console.log(data)
         setRecipe(data);
       })
       .catch((err) => console.error(err));
@@ -89,7 +90,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
         <div>
           <div className="recipe__container">
             <Card className="recipe__img-ingredients-container" loading={recipe ? false : true}>
-              <img src={recipe.image ? recipe.image : 'http://via.placeholder.com/556x370.png?text=No+Image+Available'} alt={recipe.title} />
+              <img src={recipe.image ? recipe.image : 'http://via.placeholder.com/556x370.png?text=No+Image+Available'} alt={recipe.title} className='recipe__img' />
               <div dangerouslySetInnerHTML={{__html: removeLastSentence(recipe.summary)}}/>
               <div className='recipe__servings-time-container'>
                 <p className='recipe__servings'>Servings: {recipe.servings}</p>
@@ -159,10 +160,10 @@ function ActiveRecipe({ params, addToShoppingList }) {
           <Spin size='large' tip='Loading...' className='loading-message'/>
         </Space>
       )}
-      <Modal title='Success!' visible={isSuccessfulModalVisible} onOk={handleSuccessfulOk} onCancel={handleSuccessfulCancel}>
+      <Modal title='Success!' visible={isSuccessfulModalVisible} onOk={handleSuccessfulOk} cancelButtonProps={{ disabled: true}}>
       <p>This recipe has been added to myKitchen Recipes</p>
       </Modal>
-      <Modal title='Recipe not added' visible={isFailedModalVisible} onOk={handleFailedOk} onCancel={handleFailedCancel}>
+      <Modal title='Recipe not added' visible={isFailedModalVisible} onOk={handleFailedOk} cancelButtonProps={{ style: { display: 'none' } }}>
       <p>This recipe has already been added to myKitchen Recipes</p>
       </Modal>
     </>

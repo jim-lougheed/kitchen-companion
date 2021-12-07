@@ -93,7 +93,7 @@ function DinnerSelector({ match: { params } }) {
     <>
       <h1 className='dinner-wheel__header'>myKitchen Dinner Wheel</h1>
       <div className='dinner-wheel__container'>
-      <canvas id="myCanvas" width="880" height="500" onClick={startSpin}>
+      <canvas id="myCanvas" width="880" height="500" onClick={startSpin} className='dinner-wheel__wheel'>
         Canvas not supported, use another browser.
       </canvas>
       {winningRecipe &&

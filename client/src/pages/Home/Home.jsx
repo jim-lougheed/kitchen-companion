@@ -104,7 +104,7 @@ function Home() {
           <p className='home-page__dinner-wheel-text'>Try the KitchenCompanion Dinner Wheel!</p>
           <p className='home-page__dinner-wheel-text'>Just select the ingredients you currently have in the "What's in myKitchen?" checklist and</p>
           <Link to='/recipes/search'>
-          <Button shape="round">
+          <Button shape="round" className='home-page__dinner-wheel-button'>
             Click Here!
           </Button>        
           </Link>

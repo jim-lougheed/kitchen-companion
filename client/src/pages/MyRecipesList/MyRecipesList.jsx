@@ -4,15 +4,27 @@ import axios from 'axios';
 
 import ListedRecipe from '../../components/ListedRecipe';
 
-import { Button } from 'antd';
-import { SearchOutlined, CloseOutlined } from '@ant-design/icons';
+import { Button, Space, Spin, Modal } from 'antd';
+import { SearchOutlined, CloseOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 import './MyRecipesList.scss';
 
 function MyRecipesList() {
 
     const [myRecipes, setMyRecipes] = useState(null);
+    
+    const { confirm } = Modal;
 
+    const showConfirm = (id) => {
+        confirm({
+            title: 'Delete recipe',
+            icon: <ExclamationCircleOutlined />,
+            content: 'Are you sure you want to delete this recipe?',
+            onOk() {
+                deleteRecipe(id)
+            }
+        })
+    }
     useEffect(() => {
         axios
             .get(`/myrecipes`)
@@ -26,7 +38,7 @@ function MyRecipesList() {
         axios
             .delete(`/myrecipes/${id}`)
             .then(({ data }) => {
-                console.log(data)
+                console.log(`Deleted recipe: ${data}`)
             })
             .catch((err) => console.error(err))
         deleteFromState(id)
@@ -48,16 +60,18 @@ function MyRecipesList() {
             <ul className='recipe-list__container'>
                 {myRecipes.map((recipe) => {
                     return (
-                        <li className='recipe-list__item'>
-                            <ListedRecipe key={recipe.id} recipe={recipe}/>
-                            <Button htmlType='submit' shape='circle' size='small' onClick={() => deleteRecipe(recipe.id)} className='recipe-list__delete'>
+                        <div key={recipe.id} className='recipe-list__item'>
+                            <ListedRecipe recipe={recipe}/>
+                            <Button htmlType='submit' shape='circle' size='small' onClick={() => showConfirm(recipe.id)} className='recipe-list__delete'>
                                 {<CloseOutlined/>}
                             </Button>
-                        </li>
+                        </div>
                     )
                 })}
             </ul>
-            : <p>Loading...</p>}
+            : <Space size='large'>
+          <Spin size='large' tip='Loading...' className='loading-message'/>
+        </Space>}
         </>
     )
 }
