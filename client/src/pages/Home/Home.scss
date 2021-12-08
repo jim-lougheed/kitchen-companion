@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .home-page {
 
     &__container {
@@ -69,7 +71,7 @@
     }
 
     &__header {
-        font-size: 2rem;
+        @include header;
         text-align: center;
     }
 }

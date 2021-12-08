@@ -1,8 +1,10 @@
+@use '../../styles/colours' as *;
+
 .footer {
 
     &__container {
         align-items: center;
-        background: #ea744e;
+        background: $primary;
         display: flex;
         height: 3rem;
         justify-content: center;

@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { Menu, Avatar, Input, Button } from 'antd';
 import { SearchOutlined } from "@ant-design/icons";
 import Logo from '../../assets/logos/longLogo.jpg';
+
 import './Navbar.scss';
 
 function Navbar() {
-    let history = useHistory(); 
-
     const [keyword, setKeyword] = useState('');
+    let history = useHistory(); 
 
     const handleChange = (e) => {
         setKeyword(e.target.value)
@@ -44,9 +44,7 @@ function Navbar() {
                     <p className='nav-container__quick-search'>Quick Search</p>
                     <Input type='text' name='recipeSearch' placeholder='Enter a search word' className='nav-container__input' value={keyword} onChange={handleChange} />
                     <Button htmlType='submit' shape='round' className='nav-container__button'>{<SearchOutlined/>}</Button>
-                </form>
-
-                
+                </form> 
                 <Link to='#' className='nav-container__avatar'>
                     <Avatar className='nav-container__avatar-img'>{name[0]}</Avatar>
                 </Link>
