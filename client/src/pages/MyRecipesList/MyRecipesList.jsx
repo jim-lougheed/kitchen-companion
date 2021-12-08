@@ -52,9 +52,9 @@ function MyRecipesList() {
     
     return (    
         <>
-            <h1 className='recipe-list__header'>MyKitchen Recipes</h1>
+            <h1 className='recipe-list__header'>myRecipes</h1>
             <Link to='/myrecipes/search'>
-                <Button htmlType='submit' shape='round' className='recipe-list__search-button'>{<SearchOutlined/>} Search MyKitchen Recipes</Button>
+                <Button htmlType='submit' shape='round' className='recipe-list__search-button'>{<SearchOutlined/>} Search myRecipes</Button>
             </Link>
             {myRecipes ?
             <ul className='recipe-list__container'>

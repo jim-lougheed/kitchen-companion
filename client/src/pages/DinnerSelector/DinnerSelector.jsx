@@ -9,6 +9,7 @@ function DinnerSelector({ match: { params } }) {
 
   const [winningRecipe, setWinningRecipe] = useState(null);
 
+  useEffect(() => {
   const fillWheel = (data) => {
     window.winwheel = new Winwheel({
       canvasId: "myCanvas",
@@ -61,17 +62,17 @@ function DinnerSelector({ match: { params } }) {
     });
   };
 
-  useEffect(() => {
-   
+  
     axios
     .get(`/recipes/byIngredients/${params.ingredients}`)
     .then(({ data }) => {
         fillWheel(data);
     })
     .catch((err) => console.error(err))
-  }, [params.ingredients, fillWheel]);
+  }, [params.ingredients]);
 
   
+
   function startSpin() {
     window.winwheel.stopAnimation(false);
     window.winwheel.rotationAngle = window.winwheel.rotationAngle % 360;

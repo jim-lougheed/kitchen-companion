@@ -30,10 +30,10 @@ function Navbar() {
                     <img src={Logo} alt='KitchenCompanion logo' className='nav-container__logo'></img>
                 </Link>
                 <Link to='/myrecipes/all'>
-                    <p className='nav-container__link'>myKitchen Recipes</p>
+                    <p className='nav-container__link'>myRecipes</p>
                 </Link>
                 <Link to='/myshoppinglist'>
-                    <p className='nav-container__link'>My Shopping List</p>
+                    <p className='nav-container__link'>myShopping List</p>
                 </Link>
                 <Link to='/recipes/search'>
                     <p className='nav-container__link'>Search All Recipes</p>

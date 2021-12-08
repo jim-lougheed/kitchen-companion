@@ -147,7 +147,7 @@ function Home() {
             onClick={handleAddToFavourites}
             shape="round"
           >
-            {<PlusOutlined />} Add to myKitchen Recipes
+            {<PlusOutlined />} Add to myRecipes
           </Button>
         </div>
       </div>
@@ -165,10 +165,10 @@ function Home() {
         </ul>
       </div>
       <Modal title='Success!' visible={isSuccessfulModalVisible} onOk={handleSuccessfulOk} onCancel={handleSuccessfulCancel}>
-      <p>This recipe has been added to myKitchen Recipes</p>
+      <p>This recipe has been added to myRecipes</p>
       </Modal>
       <Modal title='Recipe not added' visible={isFailedModalVisible} onOk={handleFailedOk} onCancel={handleFailedCancel}>
-      <p>This recipe has already been added to myKitchen Recipes</p>
+      <p>This recipe has already been added to myRecipes</p>
       </Modal>
     </>
   );

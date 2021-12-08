@@ -33,7 +33,7 @@ function MyShoppingList({ shoppingList, addToShoppingList, deleteFromShoppingLis
     return(
         <>
             <div className='shopping-list__container'>
-            <Card title='My Shopping List'>
+            <Card title='myShopping List'>
             {shoppingList.map((item) => {
                 return (
                     <form onSubmit={(e) => deleteFromShoppingList(e, item)}>

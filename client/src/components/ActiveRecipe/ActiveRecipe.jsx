@@ -134,7 +134,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
             </Card>
             <div className='recipe__add-related-container'>
             <Button className='recipe__add-button' onClick={handleAddToFavourites} shape="round">
-              {<PlusOutlined />} Add to myKitchen Recipes
+              {<PlusOutlined />} Add to myRecipes
             </Button>
             <h2 className='related-recipes__header'>Similar Recipes</h2>
             <ul className="related-recipes__container">
@@ -153,10 +153,10 @@ function ActiveRecipe({ params, addToShoppingList }) {
         </Space>
       )}
       <Modal title='Success!' visible={isSuccessfulModalVisible} onOk={handleSuccessfulOk} cancelButtonProps={{ disabled: true}}>
-      <p>This recipe has been added to myKitchen Recipes</p>
+      <p>This recipe has been added to myRecipes</p>
       </Modal>
       <Modal title='Recipe not added' visible={isFailedModalVisible} onOk={handleFailedOk} cancelButtonProps={{ style: { display: 'none' } }}>
-      <p>This recipe has already been added to myKitchen Recipes</p>
+      <p>This recipe has already been added to myRecipes</p>
       </Modal>
     </>
   );
