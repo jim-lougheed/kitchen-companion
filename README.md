@@ -114,6 +114,10 @@ User authentication and authorization
 
 - The user will be able to create their own account with password encryption, and be able to save information to their profile, such as myRecipes, myShopping List, and dietary preferences that will be checked automatically in search components.
 
+Make layout responsive
+
+- The layout will have a responsive design that will allow for easy use on mobile-sized devices.
+
 Recipe review scores and notes
 
 - The user will be able to assign a score out of 5 stars to each recipe saved in myRecipes, as well as write any notes they would like to attach for when they next make it.
