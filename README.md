@@ -70,7 +70,7 @@ On each recipe page, users have access to a description, a list of ingredients (
 
 ![Active Recipe component](./server/public/readme-captures/activeRecipe.JPG)
 
-## Technologies Used
+## Tech Stack
 
 ### [React](https://reactjs.org/)
 Created with `create-react-app` using the React JS library.

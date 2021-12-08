@@ -1,9 +1,9 @@
+@use '../../styles/mixins' as *;
+
 .search {
 
     &__tab-container {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
+        @include centre-flex-column;
         margin: 0 auto;
         width: 50%;
     }
@@ -30,6 +30,9 @@
     }
 }
 
+/***************
+*Ant Components*
+***************/
 .ant-checkbox-wrapper.search__checkbox {
     margin-right: 1rem;
 }
@@ -47,6 +50,7 @@
 
 .ant-input.search__small-input {
     width: 55%;
+    
     &--empty {
         outline: 1px solid red;
     }

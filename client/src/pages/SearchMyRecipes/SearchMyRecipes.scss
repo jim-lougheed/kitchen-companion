@@ -1,9 +1,9 @@
+@use '../../styles/mixins' as *;
+
 .search {
 
     &__single-container {
-        align-items: center;
-        display: flex;
-        flex-direction: column;
+        @include centre-flex-column;
     }
 
     &__search-by-restriction {

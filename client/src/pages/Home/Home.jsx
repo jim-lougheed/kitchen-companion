@@ -9,16 +9,24 @@ import { calculateTime } from "../../utils/helpers";
 import { Card, Button, Spin, Space, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import Logo from "../../assets/logos/tallLogo.jpg";
+
 import "./Home.scss";
 
 const { Meta } = Card;
 
 function Home() {
+
+  //Loaded recipes state
   const [featuredRecipes, setFeaturedRecipes] = useState(null);
-  const [isSuccessfulModalVisible, setIsSuccessfulModalVisible] = useState(false);
+  
+  //Modal visibility state
+  const [isSuccessfulModalVisible, setIsSuccessfulModalVisible] =
+    useState(false);
   const [isFailedModalVisible, setIsFailedModalVisible] = useState(false);
 
   useEffect(() => {
+    
+    //Retrieve random recipes and set to state
     axios
       .get(`/random`)
       .then(({ data: { recipes } }) => {
@@ -27,6 +35,7 @@ function Home() {
       .catch((err) => console.error(err));
   }, []);
 
+  //Add featured recipe to myRecipes
   const handleAddToFavourites = () => {
     const recipeBody = {
       id: featuredRecipes[0].id,
@@ -55,28 +64,21 @@ function Home() {
     axios
       .post("/myrecipes", recipeBody)
       .then(({ data }) => {
-        if (data === 'Successfully added to MyRecipes') {
-          setIsSuccessfulModalVisible(true) 
+        if (data === "Successfully added to MyRecipes") {
+          setIsSuccessfulModalVisible(true);
         } else {
-          setIsFailedModalVisible(true)
+          setIsFailedModalVisible(true);
         }
       })
       .catch((err) => console.error(err));
   };
 
+  //Set state of modals
   const handleSuccessfulOk = () => {
     setIsSuccessfulModalVisible(false);
   };
 
-  const handleSuccessfulCancel = () => {
-    setIsSuccessfulModalVisible(false);
-  };
-
   const handleFailedOk = () => {
-    setIsFailedModalVisible(false);
-  };
-
-  const handleFailedCancel = () => {
     setIsFailedModalVisible(false);
   };
 
@@ -89,27 +91,28 @@ function Home() {
             src={Logo}
             alt="KitchenCompanion logo"
           ></img>
-          <h1 className="home-page__header">
-            KitchenCompanion
-          </h1>
-          <h2 className="home-page__subheader">
-            Customizable Cookbook
-          </h2>
+          <h1 className="home-page__header">KitchenCompanion</h1>
+          <h2 className="home-page__subheader">Customizable Cookbook</h2>
           <p className="home-page__description">
             helps you find countless recipe ideas based on ingredients you have
-            on hand to put an end to the dreaded question of "What am I going to make
-            for dinner?"
+            on hand to put an end to the dreaded question of "What am I going to
+            make for dinner?"
           </p>
-          <div className='home-page__dinner-wheel'>
-          <p className='home-page__dinner-wheel-text'>Try the KitchenCompanion Dinner Wheel!</p>
-          <p className='home-page__dinner-wheel-text'>Just select the ingredients you currently have in the "What's in myKitchen?" checklist and</p>
-          <Link to='/recipes/search'>
-          <Button shape="round" className='home-page__dinner-wheel-button'>
-            Click Here!
-          </Button>        
-          </Link>
+          <div className="home-page__dinner-wheel">
+            <p className="home-page__dinner-wheel-text">
+              Try the KitchenCompanion Dinner Wheel!
+            </p>
+            <p className="home-page__dinner-wheel-text">
+              Just select the ingredients you currently have in the "What's in
+              myKitchen?" checklist and
+            </p>
+            <Link to="/recipes/search">
+              <Button shape="round" className="home-page__dinner-wheel-button">
+                Click Here!
+              </Button>
+            </Link>
           </div>
-          </div>
+        </div>
         <div className="featured-recipe__container">
           <h1 className="featured-recipe__header">Featured recipe</h1>
           {featuredRecipes ? (
@@ -139,9 +142,10 @@ function Home() {
               </Card>
             </Link>
           ) : (
-            <Space size='large'>
-          <Spin size='large' tip='Loading...' className='loading-message'/>
-        </Space>          )}
+            <Space size="large">
+              <Spin size="large" tip="Loading..." className="loading-message" />
+            </Space>
+          )}
           <Button
             className="featured-recipe__add-button"
             onClick={handleAddToFavourites}
@@ -164,11 +168,21 @@ function Home() {
             })}
         </ul>
       </div>
-      <Modal title='Success!' visible={isSuccessfulModalVisible} onOk={handleSuccessfulOk} onCancel={handleSuccessfulCancel}>
-      <p>This recipe has been added to myRecipes</p>
+      <Modal
+        title="Success!"
+        visible={isSuccessfulModalVisible}
+        onOk={handleSuccessfulOk}
+        cancelButtonProps={{ style: { display: "none" } }}
+      >
+        <p>This recipe has been added to myRecipes</p>
       </Modal>
-      <Modal title='Recipe not added' visible={isFailedModalVisible} onOk={handleFailedOk} onCancel={handleFailedCancel}>
-      <p>This recipe has already been added to myRecipes</p>
+      <Modal
+        title="Recipe not added"
+        visible={isFailedModalVisible}
+        onOk={handleFailedOk}
+        cancelButtonProps={{ style: { display: "none" } }}
+      >
+        <p>This recipe has already been added to myRecipes</p>
       </Modal>
     </>
   );

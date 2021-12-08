@@ -1,5 +1,7 @@
+@use '../../styles/colours' as *;
+
 .navbar {
-    background: #ea744e;
+    background: $primary;
     display: flex;
     font-family: 'Outfit', sans-serif;
     height: 65px;
@@ -15,7 +17,7 @@
         font-size: 1rem;
     
         &:hover {
-            color: #f7e9e5;
+            color: $primary-light;
         }
     }
 

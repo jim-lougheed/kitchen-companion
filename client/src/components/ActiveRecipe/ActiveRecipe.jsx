@@ -6,26 +6,46 @@ import ListedRecipeNoImage from "../ListedRecipeNoImage";
 
 import { calculateTime, removeLastSentence } from "../../utils/helpers";
 
-import { Card, Button, Timeline, Tabs, Popover, Spin, Space, Modal } from "antd";
+import {
+  Card,
+  Button,
+  Timeline,
+  Tabs,
+  Popover,
+  Spin,
+  Space,
+  Modal,
+} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+
 import "./ActiveRecipe.scss";
 
+const { TabPane } = Tabs;
+
 function ActiveRecipe({ params, addToShoppingList }) {
+  
+  //Loaded recipes state
   const [recipe, setRecipe] = useState(null);
   const [relatedRecipes, setRelatedRecipes] = useState(null);
-  const [isSuccessfulModalVisible, setIsSuccessfulModalVisible] = useState(false);
+  
+  //Modal visibility state
+  const [isSuccessfulModalVisible, setIsSuccessfulModalVisible] =
+    useState(false);
   const [isFailedModalVisible, setIsFailedModalVisible] = useState(false);
 
   useEffect(() => {
+    
+    //Retrieve active recipe and set to state
     const id = params.recipeId;
     axios
       .get(`/recipe/${id}`)
       .then(({ data }) => {
-        console.log(data)
+        console.log(data);
         setRecipe(data);
       })
       .catch((err) => console.error(err));
-
+    
+      //Retrieve related recipes and set to state
     axios
       .get(`/recipe/relatedTo/${id}`)
       .then(({ data }) => {
@@ -34,14 +54,16 @@ function ActiveRecipe({ params, addToShoppingList }) {
       .catch((err) => console.error(err));
   }, [params.recipeId]);
 
+  //Add active recipe to myRecipes
   const handleAddToFavourites = () => {
-      
     const recipeBody = {
       id: recipe.id,
       user_id: 1,
       summary: recipe.summary.substr(0, 1200),
       title: recipe.title,
-      image: recipe.image ? recipe.image : 'http://via.placeholder.com/556x370.png?text=No+Image+Available',
+      image: recipe.image
+        ? recipe.image
+        : "http://via.placeholder.com/556x370.png?text=No+Image+Available",
       analyzedInstructions: JSON.stringify(recipe.analyzedInstructions),
       cuisines: JSON.stringify(recipe.cuisines),
       dairyFree: recipe.dairyFree,
@@ -57,15 +79,16 @@ function ActiveRecipe({ params, addToShoppingList }) {
     axios
       .post("/myrecipes", recipeBody)
       .then(({ data }) => {
-        if (data === 'Successfully added to MyRecipes') {
-          setIsSuccessfulModalVisible(true) 
+        if (data === "Successfully added to MyRecipes") {
+          setIsSuccessfulModalVisible(true);
         } else {
-          setIsFailedModalVisible(true)
+          setIsFailedModalVisible(true);
         }
       })
       .catch((err) => console.error(err));
   };
 
+  //Set state of modals
   const handleSuccessfulOk = () => {
     setIsSuccessfulModalVisible(false);
   };
@@ -74,19 +97,34 @@ function ActiveRecipe({ params, addToShoppingList }) {
     setIsFailedModalVisible(false);
   };
 
-  const { TabPane } = Tabs;
-  
   return (
     <>
       {recipe ? (
         <div>
           <div className="recipe__container">
-            <Card className="recipe__img-ingredients-container" loading={recipe ? false : true}>
-              <img src={recipe.image ? recipe.image : 'http://via.placeholder.com/300x200.png?text=No+Image+Available'} alt={recipe.title} className='recipe__img' />
-              <div dangerouslySetInnerHTML={{__html: removeLastSentence(recipe.summary)}}/>
-              <div className='recipe__servings-time-container'>
-                <p className='recipe__servings'>Servings: {recipe.servings}</p>
-                <p className='recipe__time'>Ready in {calculateTime(recipe.readyInMinutes)}</p>
+            <Card
+              className="recipe__img-ingredients-container"
+              loading={recipe ? false : true}
+            >
+              <img
+                src={
+                  recipe.image
+                    ? recipe.image
+                    : "http://via.placeholder.com/300x200.png?text=No+Image+Available"
+                }
+                alt={recipe.title}
+                className="recipe__img"
+              />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: removeLastSentence(recipe.summary),
+                }}
+              />
+              <div className="recipe__servings-time-container">
+                <p className="recipe__servings">Servings: {recipe.servings}</p>
+                <p className="recipe__time">
+                  Ready in {calculateTime(recipe.readyInMinutes)}
+                </p>
               </div>
             </Card>
             <Card className="recipe__name-directions-container">
@@ -103,15 +141,26 @@ function ActiveRecipe({ params, addToShoppingList }) {
                               e.target.children[0].attributes.name.nodeValue
                             )
                           }
-                          className='recipe__ingredient-container'
+                          className="recipe__ingredient-container"
                         >
-                          <Timeline.Item className='recipe__ingredient' name={ingredient.name}>
+                          <Timeline.Item
+                            className="recipe__ingredient"
+                            name={ingredient.name}
+                          >
                             {ingredient.originalString}
                           </Timeline.Item>
-                          <Popover content={`Add ${ingredient.name.toUpperCase()} to Shopping List`} trigger='hover'>
-                          <Button htmlType="submit" shape="circle" size='small' className='recipe__ingredient-add-button'>
-                            {<PlusOutlined />}
-                          </Button>
+                          <Popover
+                            content={`Add ${ingredient.name.toUpperCase()} to Shopping List`}
+                            trigger="hover"
+                          >
+                            <Button
+                              htmlType="submit"
+                              shape="circle"
+                              size="small"
+                              className="recipe__ingredient-add-button"
+                            >
+                              {<PlusOutlined />}
+                            </Button>
                           </Popover>
                         </form>
                       </Timeline>
@@ -132,31 +181,47 @@ function ActiveRecipe({ params, addToShoppingList }) {
                 </TabPane>
               </Tabs>
             </Card>
-            <div className='recipe__add-related-container'>
-            <Button className='recipe__add-button' onClick={handleAddToFavourites} shape="round">
-              {<PlusOutlined />} Add to myRecipes
-            </Button>
-            <h2 className='related-recipes__header'>Similar Recipes</h2>
-            <ul className="related-recipes__container">
-            {relatedRecipes &&
-              relatedRecipes.map((recipe) => {
-                return <ListedRecipeNoImage key={recipe.id} recipe={recipe} />;
-              })}
-            </ul>
+            <div className="recipe__add-related-container">
+              <Button
+                className="recipe__add-button"
+                onClick={handleAddToFavourites}
+                shape="round"
+              >
+                {<PlusOutlined />} Add to myRecipes
+              </Button>
+              <h2 className="related-recipes__header">Similar Recipes</h2>
+              <ul className="related-recipes__container">
+                {relatedRecipes &&
+                  relatedRecipes.map((recipe) => {
+                    return (
+                      <ListedRecipeNoImage key={recipe.id} recipe={recipe} />
+                    );
+                  })}
+              </ul>
             </div>
           </div>
           <RecipeTags recipe={recipe} />
         </div>
       ) : (
-        <Space size='large'>
-          <Spin size='large' tip='Loading...' className='loading-message'/>
+        <Space size="large">
+          <Spin size="large" tip="Loading..." className="loading-message" />
         </Space>
       )}
-      <Modal title='Success!' visible={isSuccessfulModalVisible} onOk={handleSuccessfulOk} cancelButtonProps={{ disabled: true}}>
-      <p>This recipe has been added to myRecipes</p>
+      <Modal
+        title="Success!"
+        visible={isSuccessfulModalVisible}
+        onOk={handleSuccessfulOk}
+        cancelButtonProps={{ style: { display: "none" } }}
+      >
+        <p>This recipe has been added to myRecipes</p>
       </Modal>
-      <Modal title='Recipe not added' visible={isFailedModalVisible} onOk={handleFailedOk} cancelButtonProps={{ style: { display: 'none' } }}>
-      <p>This recipe has already been added to myRecipes</p>
+      <Modal
+        title="Recipe not added"
+        visible={isFailedModalVisible}
+        onOk={handleFailedOk}
+        cancelButtonProps={{ style: { display: "none" } }}
+      >
+        <p>This recipe has already been added to myRecipes</p>
       </Modal>
     </>
   );
