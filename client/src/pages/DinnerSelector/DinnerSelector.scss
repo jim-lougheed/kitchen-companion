@@ -1,8 +1,9 @@
+@use '../../styles/mixins' as *;
+
 .dinner-wheel {
 
     &__header {
-        font-size: 2rem;
-        margin: 2rem auto;
+        @include header;
         text-align: center;
     }
 

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { Card } from 'antd';
+
 import './ListedRecipeNoImage.scss';
 
 const { Meta } = Card;

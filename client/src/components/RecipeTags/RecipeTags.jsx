@@ -1,4 +1,5 @@
 import { Tag } from 'antd';
+
 import './RecipeTags.scss';
 
 function RecipeTags({ recipe: { cuisines, dishTypes, diets, occasions }}) {
