@@ -5,8 +5,8 @@ const axios = require('axios');
 const knex = require("knex")(require('./knexfile').development);
 const myrecipesRoutes = require('./routes/myrecipes');
 
-const { PORT } = process.env;
-// const mysql = require('mysql');
+const { PORT } = 8080;
+const mysql = require('mysql');
 
 const app = express();
 
@@ -28,7 +28,7 @@ app.use('/myrecipes', myrecipesRoutes);
 app
     .get('/random', (req, res) => {
         axios
-            .get(`${process.env.API_URL}random${process.env.API_KEY}&number=5`)
+            .get(`https://api.spoonacular.com/recipes/random?apiKey=ca2d14a3669448e6b1f470c6a99a52b1&number=5`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
     })
@@ -39,7 +39,7 @@ app
 app
     .get('/recipe/:id', (req, res) => {
         axios
-            .get(`${process.env.API_URL}${req.params.id}/information${process.env.API_KEY}`)
+            .get(`https://api.spoonacular.com/recipes/${req.params.id}/information?apiKey=ca2d14a3669448e6b1f470c6a99a52b1`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
     })
@@ -50,7 +50,7 @@ app
 app    
     .get('/recipe/relatedTo/:id', (req, res) => {
         axios
-            .get(`${process.env.API_URL}${req.params.id}/similar${process.env.API_KEY}&number=3`)
+            .get(`https://api.spoonacular.com/recipes/${req.params.id}/similar?apiKey=ca2d14a3669448e6b1f470c6a99a52b1&number=3`)
             .then(({ data }) => res.send(data))
     })
 
@@ -59,9 +59,9 @@ app
  */
 app
     .get('/recipes/:keyword', (req, res) => {
-        console.log(`${process.env.API_URL}complexSearch${process.env.API_KEY}${req.params.keyword}&number=30`)
+        console.log(`https://api.spoonacular.com/recipes/complexSearch?apiKey=ca2d14a3669448e6b1f470c6a99a52b1${req.params.keyword}&number=30`)
     axios
-        .get(`${process.env.API_URL}complexSearch${process.env.API_KEY}${req.params.keyword}&number=30`)
+        .get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=ca2d14a3669448e6b1f470c6a99a52b1${req.params.keyword}&number=30`)
         .then(({ data }) => res.send(data))
         .catch((err) => console.error(err))
 })
@@ -72,7 +72,7 @@ app
 app
     .get('/recipes/byIngredients/:ingredients', (req, res) => {
         axios
-            .get(`${process.env.API_URL}findByIngredients${process.env.API_KEY}&ingredients=${req.params.ingredients}&number=20&ranking=1&ignorePantry`)
+            .get(`https://api.spoonacular.com/recipes/findByIngredients?apiKey=ca2d14a3669448e6b1f470c6a99a52b1&ingredients=${req.params.ingredients}&number=20&ranking=1&ignorePantry`)
             .then(({ data }) => res.send(data))
             .catch((err) => console.error(err))
     })
