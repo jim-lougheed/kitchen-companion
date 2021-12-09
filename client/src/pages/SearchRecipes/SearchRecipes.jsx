@@ -15,6 +15,10 @@ function SearchRecipes({ ingredients }) {
   //Set state for input text and modal visibility
   const [inputKeyword, setInputKeyword] = useState(null);
   const [visible, setVisible] = useState(false);
+  const [diets, setDiets] = useState(null);
+  const [cuisines, setCuisines] = useState(null)
+  const [intolerances, setIntolerances] = useState(null);
+  const [type, setType] = useState(null);
 
   let history = useHistory();
 
@@ -22,6 +26,22 @@ function SearchRecipes({ ingredients }) {
   const handleChange = (e) => {
     setInputKeyword(e.target.value);
   };
+
+  const handleDietsChange = (e) => {
+    setDiets(e);
+  }
+
+  const handleCuisinesChange = (e) => {
+    setCuisines(e);
+  }
+
+  const handleIntolerancesChange = (e) => {
+    setIntolerances(e);
+  }
+
+  const handleTypeChange = (e) => {
+    setType(e);
+  }
 
   //Search all recipes based on ingredients
   const searchByIngredientsOnHand = (e) => {
@@ -58,6 +78,7 @@ function SearchRecipes({ ingredients }) {
   //Search all recipes using advanced search criteria
   const advancedSearch = (e) => {
     e.preventDefault();
+    console.log(e.target.diets)
     if (inputKeyword === "" || inputKeyword === null) {
       setInputKeyword("");
       setVisible(true);
@@ -69,18 +90,14 @@ function SearchRecipes({ ingredients }) {
         }
       }
       const {
-        diets,
-        cuisines,
-        intolerances,
-        type,
         maxReadyTime,
         excludeIngredients,
       } = e.target;
       const searchURL = `/recipes/&query=${inputKeyword}${
-        diets.value ? `&diet=${diets.value}` : ""
-      }${cuisines.value ? `&cuisine=${cuisines.value}` : ""}${
-        intolerances.value ? `&intolerances=${intolerances.value}` : ""
-      }${type.value ? `&type=${type.value}` : ""}${
+        diets ? `&diet=${diets}` : ""
+      }${cuisines ? `&cuisine=${cuisines}` : ""}${
+        intolerances ? `&intolerances=${intolerances}` : ""
+      }${type ? `&type=${type.value}` : ""}${
         maxReadyTime.value ? `&maxReadyTime=${maxReadyTime.value}` : ""
       }${
         excludeIngredients.value
@@ -143,7 +160,7 @@ function SearchRecipes({ ingredients }) {
               <label htmlFor="diets" className="search__label">
                 Diets
               </label>
-              <Select name="diets" id="diets" className="search__select-menu">
+              <Select name="diets" id="diets" className="search__select-menu" onChange={handleDietsChange}>
                 <Option value=""></Option>
                 <Option value="gluten-free">Gluten-free</Option>
                 <Option value="ketogenic">Keto</Option>
@@ -163,6 +180,7 @@ function SearchRecipes({ ingredients }) {
                 name="cuisines"
                 id="cuisines"
                 className="search__select-menu"
+                onChange={handleCuisinesChange}
               >
                 <Option value=""></Option>
                 <Option value="african">African</Option>
@@ -198,6 +216,7 @@ function SearchRecipes({ ingredients }) {
                 name="intolerances"
                 id="intolerances"
                 className="search__select-menu"
+                onChange={handleIntolerancesChange}
               >
                 <Option value=""></Option>
                 <Option value="dairy">Dairy</Option>
@@ -216,7 +235,7 @@ function SearchRecipes({ ingredients }) {
               <label htmlFor="type" className="search__label">
                 Meal Type
               </label>
-              <Select name="type" id="type" className="search__select-menu">
+              <Select name="type" id="type" className="search__select-menu" onChange={handleTypeChange}>
                 <Option value=""></Option>
                 <Option value="appetizer">Appetizer</Option>
                 <Option value="bread">Bread</Option>

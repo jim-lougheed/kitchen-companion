@@ -18,7 +18,7 @@
         left: 25%;
         opacity: 50%;
         position: absolute;
-        top: 30%;
+        top: 35%;
         width: 50%;
     }
 
@@ -65,7 +65,7 @@
     background: black;
 
     &__container {
-        margin: 5rem 3rem;
+        margin: 5rem 3rem 4rem;
         position: relative;
         width: 30%;
     }
@@ -81,7 +81,6 @@
     &__header {
         font-size: 2rem;
         margin-left: 3rem;
-        margin-top: 1rem;
     }
 
     &__list {
