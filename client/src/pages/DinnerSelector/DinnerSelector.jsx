@@ -6,12 +6,10 @@ import ListedRecipe from "../../components/ListedRecipe";
 import "./DinnerSelector.scss";
 
 function DinnerSelector({ match: { params } }) {
-  
   //Set up winning recipe state
   const [winningRecipe, setWinningRecipe] = useState(null);
 
   useEffect(() => {
-    
     //Load winwheel with data
     const fillWheel = (data) => {
       window.winwheel = new Winwheel({
@@ -96,7 +94,7 @@ function DinnerSelector({ match: { params } }) {
   //Handle winwheel completion callback
   function handleWinningSegment() {
     let winningSegment = window.winwheel.getIndicatedSegment();
-    
+
     //Retrieve winning result data
     axios
       .get(`/recipe/${winningSegment.id}`)

@@ -23,18 +23,16 @@ import "./ActiveRecipe.scss";
 const { TabPane } = Tabs;
 
 function ActiveRecipe({ params, addToShoppingList }) {
-  
   //Loaded recipes state
   const [recipe, setRecipe] = useState(null);
   const [relatedRecipes, setRelatedRecipes] = useState(null);
-  
+
   //Modal visibility state
   const [isSuccessfulModalVisible, setIsSuccessfulModalVisible] =
     useState(false);
   const [isFailedModalVisible, setIsFailedModalVisible] = useState(false);
 
   useEffect(() => {
-    
     //Retrieve active recipe and set to state
     const id = params.recipeId;
     axios
@@ -44,8 +42,8 @@ function ActiveRecipe({ params, addToShoppingList }) {
         setRecipe(data);
       })
       .catch((err) => console.error(err));
-    
-      //Retrieve related recipes and set to state
+
+    //Retrieve related recipes and set to state
     axios
       .get(`/recipe/relatedTo/${id}`)
       .then(({ data }) => {
@@ -147,7 +145,7 @@ function ActiveRecipe({ params, addToShoppingList }) {
                             className="recipe__ingredient"
                             name={ingredient.name}
                           >
-                            {ingredient.originalString}
+                            {ingredient.originalName}
                           </Timeline.Item>
                           <Popover
                             content={`Add ${ingredient.name.toUpperCase()} to Shopping List`}

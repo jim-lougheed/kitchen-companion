@@ -141,7 +141,7 @@ function SearchRecipes({ ingredients }) {
               className="search__search-by-ingredients search__tab-container"
             >
               <p className="search__search-by-ingredients-description">
-                Search by what's in your kitchen
+                Search by "What's in myKitchen?"
               </p>
               <Button
                 htmlType="submit"
@@ -266,7 +266,7 @@ function SearchRecipes({ ingredients }) {
                   id="includeIngredients"
                 ></Checkbox>
                 <p className="search__label">
-                  Include Ingredients from "What's in my fridge"
+                  Include Ingredients from "What's in myKitchen?"
                 </p>
               </div>
               <p className="search__label">Maximum Cook Time</p>
